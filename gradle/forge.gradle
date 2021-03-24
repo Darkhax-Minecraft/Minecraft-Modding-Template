@@ -1,0 +1,104 @@
+buildscript {
+
+    repositories {
+        
+        maven { 
+        
+            url 'https://files.minecraftforge.net/maven'
+        }
+        
+        maven { 
+            
+            url 'https://plugins.gradle.org/m2/'
+        }
+        
+        mavenCentral()
+    }
+    
+    dependencies {
+    
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.+', changing: true
+    }
+}
+
+apply from: 'gradle/property_helper.gradle'
+apply plugin: net.minecraftforge.gradle.userdev.UserDevPlugin
+
+def minecraftVersion = getRequiredString('minecraft_version')
+def forgeVersion = getRequiredString('forge_version')
+def modName = getRequiredString('mod_name')
+def clientRunDir = getDefaultString('forge_client_dir', 'run')
+def serverRunDir = getDefaultString('forge_server_dir', 'run')
+def loggingLevel = getDefaultString('forge_log_level', 'debug')
+
+minecraft {
+
+    // Loads mojmaps for the current MC version.
+    mappings channel: 'official', version: minecraftVersion
+    
+    // Loads access transofrmers if the user has specified them.
+    if (project.hasProperty('forge_at')) {
+    
+        accessTransformer = file(project.findProperty('mod_at'))
+    }
+    
+    runs {
+    
+        client {
+        
+            // Sets the folder the client runs in.
+            workingDirectory project.file(clientRunDir)
+            
+            // Sets the name of the run to include the mod name.
+            taskName modName.replaceAll("\\s","") + 'Client'
+                       
+            property 'forge.logging.console.level', loggingLevel
+
+            mods {
+            
+                clientRun {
+                
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+        
+            workingDirectory project.file(serverRunDir)
+            taskName modName.replaceAll("\\s","") + 'Server'
+            property 'forge.logging.console.level', loggingLevel
+            
+            mods {
+            
+                serverRun {
+                
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+
+    minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
+}
+
+jar {
+    manifest {
+        attributes([
+            'ModLoader': "forge-${forgeVersion}"
+        ])
+    }
+}
+
+task runClient() {
+
+    dependsOn modName.replaceAll("\\s","") + 'Client'
+}
+
+task runServer() {
+
+    dependsOn modName.replaceAll("\\s","") + 'Server'
+}

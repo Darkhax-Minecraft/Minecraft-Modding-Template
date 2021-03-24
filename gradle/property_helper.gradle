@@ -1,0 +1,46 @@
+def String getString(name, defaultValue, warn = false) {
+
+    return getProperty(name, defaultValue, warn).toString()
+}
+
+def getProperty(name, defaultValue, warn = false) {
+
+    // Ensure it's a string, to handle Gradle Strings.
+    name = name.toString();
+    
+    if (project.hasProperty(name)) {
+    
+        return project.findProperty(name)
+    }
+    
+    if (warn) {
+    
+        project.logger.warn("Property ${name} was not found. Defaulting to ${defaultValue}.")
+    }
+    
+    return defaultValue
+}
+
+def getRequiredString(name) {
+
+    return getRequiredProperty(name).toString()
+}
+
+def getRequiredProperty(name) {
+
+    if (project.hasProperty(name)) {
+    
+        return project.findProperty(name)
+    }
+    
+    project.logger.error("The ${name} property is required!")
+    throw new RuntimeException("The ${name} property is required!")
+}
+
+ext {
+
+    getDefaultString = this.&getString
+    getDefaultProperty = this.&getProperty
+    getRequiredString = this.&getRequiredString
+    getRequiredProperty = this.&getRequiredProperty
+}

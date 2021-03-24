@@ -1,0 +1,13 @@
+# Gradle
+.gradle/
+bin/
+build/
+
+#Eclipse
+*.classpath
+*.project
+*.prefs
+*.launch
+
+# General
+run/

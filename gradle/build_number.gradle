@@ -1,0 +1,12 @@
+// This plugin will append the current build number to the project version.
+// This is mainly used with build servers such as Jenkins to increment the last
+// number of the version automatically.
+
+project.version = "${project.version}.${getBuildNumber()}".toString()
+project.logger.lifecycle("Applying build number to version. Version is now ${project.version}")
+
+// Detects the build number from Jenkins, Travis, or other environmental variables.
+String getBuildNumber() {
+
+    return System.getenv('BUILD_NUMBER') ? System.getenv('BUILD_NUMBER') : System.getenv('TRAVIS_BUILD_NUMBER') ? System.getenv('TRAVIS_BUILD_NUMBER') : '0';
+}

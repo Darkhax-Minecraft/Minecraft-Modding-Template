@@ -1,15 +1,19 @@
+project.logger.lifecycle("Loading Forge project module. Using Mixins: ${project.hasProperty('mixin_id')}")
+
 buildscript {
 
     repositories {
         
         maven { 
         
+            name 'Official Forge Maven'
             url 'https://files.minecraftforge.net/maven'
         }
         
-        maven { 
+        maven {
             
-            url 'https://plugins.gradle.org/m2/'
+            name 'Sponge / Mixin Maven'
+            url 'https://repo.spongepowered.org/repository/maven-public/'
         }
         
         mavenCentral()
@@ -18,18 +22,22 @@ buildscript {
     dependencies {
     
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.+', changing: true
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 
 apply from: 'gradle/property_helper.gradle'
 apply plugin: net.minecraftforge.gradle.userdev.UserDevPlugin
+apply plugin: org.spongepowered.asm.gradle.plugins.MixinGradlePlugin
 
+// Loading the required and optional properties. 
 def minecraftVersion = getRequiredString('minecraft_version')
 def forgeVersion = getRequiredString('forge_version')
 def modName = getRequiredString('mod_name')
 def clientRunDir = getDefaultString('forge_client_dir', 'run')
 def serverRunDir = getDefaultString('forge_server_dir', 'run')
 def loggingLevel = getDefaultString('forge_log_level', 'debug')
+def loggingANSI = getDefaultProperty('forge_log_ansi', true).asBoolean()
 
 minecraft {
 
@@ -52,8 +60,21 @@ minecraft {
             // Sets the name of the run to include the mod name.
             taskName modName.replaceAll("\\s","") + 'Client'
                        
+            // Sets Forge's logging level on the client.
             property 'forge.logging.console.level', loggingLevel
 
+            // Enables ANSI color codes in the logs.
+            if (loggingANSI) {
+            
+                property 'terminal.ansi', 'true' 
+            }
+            
+            // Enable mixins on the client.
+            if (project.hasProperty('mixin_id')) {
+            
+                arg "-mixin.config=" + project.findProperty('mixin_id') + ".mixins.json"
+            }
+            
             mods {
             
                 clientRun {
@@ -65,9 +86,26 @@ minecraft {
 
         server {
         
+            // Sets the folder the server runs in.
             workingDirectory project.file(serverRunDir)
+            
+            // Sets the name of the run to include the mod name.
             taskName modName.replaceAll("\\s","") + 'Server'
+            
+            // Sets Forge's logging level on the server.
             property 'forge.logging.console.level', loggingLevel
+
+            // Enables ANSI color codes in the logs.
+            if (loggingANSI) {
+            
+                property 'terminal.ansi', 'true' 
+            }
+            
+            // Enable mixins on the server.
+            if (project.hasProperty('mixin_id')) {
+            
+                arg "-mixin.config=" + project.findProperty('mixin_id') + ".mixins.json"
+            }
             
             mods {
             
@@ -82,23 +120,59 @@ minecraft {
 
 dependencies {
 
+    // Sets Minecraft and Forge as a dependency for the project.
     minecraft "net.minecraftforge:forge:${minecraftVersion}-${forgeVersion}"
+    
+    // Loads mixin dependencies when needed.
+    if (project.hasProperty('mixin_id')) {
+    
+        // Gradle 5.0+ no longer auto-loads annotation processors. Mixin relies
+        // on these to generate the refmap file. For unknown reasons the deps
+        // of the annotation processor are not being added to the classpath so
+        // they are also added here.
+        annotationProcessor 'org.spongepowered:mixin:0.8'
+        annotationProcessor 'com.google.code.gson:gson:2.2.4'
+        annotationProcessor 'com.google.guava:guava:21.0'
+        annotationProcessor 'org.ow2.asm:asm-tree:6.2'
+    }
 }
 
 jar {
     manifest {
-        attributes([
-            'ModLoader': "forge-${forgeVersion}"
-        ])
+    
+        // Adds modloader details to the manifest. This is non-functional meta.
+        attributes(['ModLoader': "forge-${forgeVersion}"])
+        
+        // Adds the mixin config to the manifest when needed. This is used to
+        // load mixins.
+        if (project.hasProperty('mixin_id')) {
+        
+            attributes(['MixinConfigs': "${mixin_id}.mixins.json"])
+        }
     }
 }
 
+mixin {
+
+    // Tells the mixin plugin where to put the generated refmap file.
+    if (project.hasProperty('mixin_id')) {
+    
+        add sourceSets.main, "${mixin_id}.refmap.json"
+    }
+}
+
+// Forge normally generates this task, but by giving the run config a unique
+// name for multi-project workspaces we also change the name of the generated
+// task. Some 3rd party tools depend on these tasks existing so we recreate
+// them here.
 task runClient() {
 
+    description = 'Runs the game client in developer/debug mode.'
     dependsOn modName.replaceAll("\\s","") + 'Client'
 }
 
 task runServer() {
 
+    description = 'Runs the game server in developer/debug mode.'
     dependsOn modName.replaceAll("\\s","") + 'Server'
 }

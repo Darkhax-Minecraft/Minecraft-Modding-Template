@@ -1,5 +1,15 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply from: 'gradle/property_helper.gradle'
 
-apply from: 'gradle/forge.gradle'
+ext.modName = getRequiredString('mod_name')
+ext.modAuthor = getRequiredString('mod_author')
+ext.modCredits = getDefaultString('mod_credits', ext.modAuthor)
+ext.mcVersion = getRequiredString('minecraft_version')
+
 apply from: 'gradle/build_number.gradle'
+apply from: 'gradle/common_manifest.gradle'
+apply from: 'gradle/forge.gradle'
+
+archivesBaseName = "${mod_name}-${minecraft_version}"
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'

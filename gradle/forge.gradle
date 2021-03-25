@@ -37,6 +37,9 @@ def serverRunDir = getDefaultString('forge_server_dir', 'run')
 def loggingLevel = getDefaultString('forge_log_level', 'debug')
 def loggingANSI = getDefaultProperty('forge_log_ansi', true).asBoolean()
 
+archivesBaseName = "${mod_name}-${minecraft_version}"
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+
 minecraft {
 
     // Loads mojmaps for the current MC version.

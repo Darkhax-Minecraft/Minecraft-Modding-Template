@@ -1,0 +1,26 @@
+// This module will minify all JSON files in build artefacts. This is done by 
+// removing superflous new lines and whitespace. This does not modify the raw
+// source files at all, only the copies of those files in build artefacts.
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
+processResources {
+    
+    doLast {
+    
+        def jsonMinifyStart = System.currentTimeMillis()
+        def jsonMinified = 0
+        def jsonBytesSaved = 0
+        
+        fileTree(dir: outputs.files.asPath, include: '**/*.json').each {
+        
+            File file = it
+            jsonMinified++
+            def oldLength = file.length()
+            file.text = JsonOutput.toJson(new JsonSlurper().parse(file))
+            jsonBytesSaved += oldLength - file.length()
+        }
+        
+        project.logger.lifecycle("Minified ${jsonMinified} json files. Saved ${jsonBytesSaved} bytes before compression. Took ${System.currentTimeMillis() - jsonMinifyStart}ms.")
+    }
+}

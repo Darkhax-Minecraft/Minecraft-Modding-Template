@@ -10,6 +10,4 @@ ext.mcVersion = getRequiredString('minecraft_version')
 apply from: 'gradle/build_number.gradle'
 apply from: 'gradle/common_manifest.gradle'
 apply from: 'gradle/forge.gradle'
-
-archivesBaseName = "${mod_name}-${minecraft_version}"
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+apply from: 'gradle/minify_jsons.gradle'

@@ -3,7 +3,7 @@
 // number of the version automatically.
 
 project.version = "${project.version}.${getBuildNumber()}".toString()
-project.logger.lifecycle("Applying build number to version. Version is now ${project.version}")
+project.logger.lifecycle("Appending build number to version. Version is now ${project.version}")
 
 // Detects the build number from Jenkins, Travis, or other environmental variables.
 String getBuildNumber() {

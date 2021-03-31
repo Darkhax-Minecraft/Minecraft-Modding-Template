@@ -177,3 +177,27 @@ task runServer() {
     description = 'Runs the game server in developer/debug mode.'
     dependsOn modName.replaceAll("\\s","") + 'Server'
 }
+
+// Forge's Jar Signer
+task signJar(type: net.minecraftforge.gradle.common.task.SignJar, dependsOn: jar) {
+    
+    if (project.hasProperty('keyStore')) {
+    
+        keyStore = project.findProperty('keyStore')
+        alias = project.findProperty('keyStoreAlias')
+        storePass = project.findProperty('keyStorePass')
+        keyPass = project.findProperty('keyStoreKeyPass')
+        inputFile = jar.archivePath
+        outputFile = jar.archivePath
+    }
+}
+
+if (project.hasProperty('keyStore')) {
+
+    build.dependsOn signJar
+}
+
+else {
+
+    project.logger.warn('Jar signing is disabled for this build. No keyStore property specified.')
+}

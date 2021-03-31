@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply from: 'gradle/property_helper.gradle'
+apply from: 'gradle/secret_injector.gradle'
 
 ext.modName = getRequiredString('mod_name')
 ext.modAuthor = getRequiredString('mod_author')
@@ -9,6 +10,6 @@ ext.mcVersion = getRequiredString('minecraft_version')
 
 apply from: 'gradle/build_number.gradle'
 apply from: 'gradle/common_manifest.gradle'
+apply from: 'gradle/maven.gradle'
 apply from: 'gradle/forge.gradle'
 apply from: 'gradle/minify_jsons.gradle'
-apply from: 'gradle/secret_injector.gradle'

@@ -1,0 +1,56 @@
+apply plugin: 'maven-publish' 
+
+publishing {
+
+    tasks.publish.dependsOn 'build'
+    
+    publications {
+
+        mavenJava(MavenPublication) {
+        
+            artifactId project.archivesBaseName
+
+            // Base mod archive.
+            artifact jar
+            
+            // Adds the sources as an artifact.
+            artifact sourcesJar {
+                classifier 'sources'
+            }
+
+            // Adds the javadocs as an artifact.
+            artifact javadocJar {
+                classifier 'javadoc'
+            }
+        }
+    }
+
+    repositories {
+    
+        maven {
+        
+            // Sets maven credentials if they are provided. This is generally
+            // only used for external/remote uploads.
+            if (project.hasProperty('userMaven') && project.hasProperty('authMaven')) {
+            
+                credentials {
+                
+                    username findProperty('userMaven')
+                    password findProperty('authMaven')
+                }
+            }
+
+            // Uploads maven artifacts to a local maven if specified.
+            if (project.hasProperty('localMaven')) {
+            
+                url project.findProperty('localMaven')
+            }
+            
+            // Uploads maven artifacts to a remote maven if specified.
+            else if (project.hasProperty('urlMaven')) {
+            
+                url project.findProperty('urlMaven')
+            }
+        }
+    }
+}

@@ -10,6 +10,7 @@ ext.mcVersion = getRequiredString('minecraft_version')
 
 apply from: 'gradle/build_number.gradle'
 apply from: 'gradle/common_manifest.gradle'
+apply from: 'gradle/common_artifacts.gradle'
 apply from: 'gradle/maven.gradle'
 apply from: 'gradle/forge.gradle'
 apply from: 'gradle/minify_jsons.gradle'

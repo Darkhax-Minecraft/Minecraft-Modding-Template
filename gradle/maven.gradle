@@ -1,6 +1,6 @@
 apply plugin: 'maven-publish' 
 
-publishing {
+project.publishing {
 
     tasks.publish.dependsOn 'build'
     
@@ -14,12 +14,12 @@ publishing {
             artifact jar
             
             // Adds the sources as an artifact.
-            artifact sourcesJar {
+            artifact project.sourcesJar {
                 classifier 'sources'
             }
 
             // Adds the javadocs as an artifact.
-            artifact javadocJar {
+            artifact project.javadocJar {
                 classifier 'javadoc'
             }
         }

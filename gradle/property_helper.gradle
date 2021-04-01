@@ -37,10 +37,23 @@ def getRequiredProperty(name) {
     throw new RuntimeException("The ${name} property is required!")
 }
 
+def getExecOutput(commands) {
+
+    def out = new ByteArrayOutputStream()
+        
+    exec {
+        commandLine commands
+        standardOutput out
+    }
+        
+    return out.toString().trim();
+}
+
 ext {
 
     getDefaultString = this.&getString
     getDefaultProperty = this.&getProperty
     getRequiredString = this.&getRequiredString
     getRequiredProperty = this.&getRequiredProperty
+    getExecOutput = this.&getExecOutput
 }

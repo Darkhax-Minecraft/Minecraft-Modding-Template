@@ -1,0 +1,17 @@
+apply from: 'gradle/property_helper.gradle'
+
+def gitRepo = getDefaultString('gitRemote', getExecOutput(['git', 'remote', 'get-url', 'origin']))
+def gitCommit = System.getenv('GIT_COMMIT') ?: getExecOutput(['git', 'log', '-n', '1', '--pretty=tformat:%h' ])
+def gitPrevCommit = System.getenv('GIT_PREVIOUS_COMMIT')
+
+// If a full range is available use that range.
+if (gitCommit && gitPrevCommit) {
+
+    project.ext.changelog = getExecOutput(['git', 'log', "--pretty=tformat:- %s [(%h)](${gitRepo}/commit/%h)", '' + gitPrevCommit + '..' + gitCommit])
+}
+
+// If only one commit is available, use the last commit.
+else if (gitCommit) {
+
+    project.ext.changelog = getExecOutput(['git', 'log', '' + "--pretty=tformat:- %s [(%h)](${gitRepo}/commit/%h)", '-1', '' + gitCommit])
+}

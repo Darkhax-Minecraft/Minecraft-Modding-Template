@@ -1,0 +1,40 @@
+import groovy.json.JsonSlurper
+import groovy.json.JsonOutput
+
+apply from: 'gradle/property_helper.gradle'
+
+task updateVersionTracker {
+    
+    onlyIf {
+    
+        project.hasProperty('versionTrackerAPI') && project.hasProperty('versionTrackerUsername')
+    }
+    
+    doLast {
+
+        def username = getRequiredString('versionTrackerUsername')
+        def apiKey = getRequiredString('versionTrackerKey')
+        
+        // Creates a Map that acts as the Json body of the API request.
+        def body = [
+            'author': username,
+            'projectName': project.ext.modId,
+            'gameVersion': project.ext.mcVersion,
+            'projectVersion': project.version,
+            'homepage': project.ext.modDownload,
+            'uid': apiKey
+        ]
+    
+        // Opens a connection to the version tracker API and writes the payload JSON.
+        def req = new URL(project.findProperty('versionTrackerAPI')).openConnection()
+        req.setRequestMethod('POST')
+        req.setRequestProperty('Content-Type', 'application/json; charset=UTF-8')
+        req.setRequestProperty('User-Agent', "${project.ext.modName} Tracker Gradle")
+        req.setDoOutput(true)
+        req.getOutputStream().write(JsonOutput.toJson(body).getBytes("UTF-8"))
+
+        // For the request to be sent we need to read data from the stream.
+        project.logger.lifecycle("Version Check Status: ${req.getResponseCode()}")
+        project.logger.lifecycle("Version Check Response: ${req.getInputStream().getText()}")
+    }
+}

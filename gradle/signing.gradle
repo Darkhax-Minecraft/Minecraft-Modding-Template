@@ -32,6 +32,11 @@ if (!project.hasProperty('signing.secretKeyRingFile') && project.hasProperty('pg
         project.ext.set('signing.secretKeyRingFile', pgpKeyRing.getAbsolutePath())
         project.logger.lifecycle('Setting signing.secretKeyRingFile from pgpKeyRing')
     }
+    
+    else {
+    
+        project.logger.warn('Failed to assign signing.secretKeyRingFile from fallback.')
+    }
 }
 
 if (!project.hasProperty('signing.secretKeyRingFile')) {

@@ -3,17 +3,26 @@ apply plugin: 'eclipse'
 apply from: 'gradle/property_helper.gradle'
 apply from: 'gradle/secret_injector.gradle'
 
+// Load mod related properties
 ext.modName = getRequiredString('mod_name')
 ext.modAuthor = getRequiredString('mod_author')
+ext.modId = getRequiredString('mod_id')
 ext.modCredits = getDefaultString('mod_credits', ext.modAuthor)
-ext.mcVersion = getRequiredString('minecraft_version')
-ext.changelog = getDefaultString('mod_changelog', '')
+ext.modChangelog = getOptionalString('mod_changelog')
+ext.modDownload = getOptionalString('mod_download')
+ext.modIssues = getOptionalString('mod_issues')
 
+// Load Minecraft specific properties
+ext.mcVersion = getRequiredString('minecraft_version')
+
+// Load build-time modules
 apply from: 'gradle/build_number.gradle'
 apply from: 'gradle/common_manifest.gradle'
 apply from: 'gradle/common_artifacts.gradle'
-apply from: 'gradle/maven.gradle'
 apply from: 'gradle/forge.gradle'
 apply from: 'gradle/minify_jsons.gradle'
 apply from: 'gradle/git_changelog.gradle'
+
+// Load publishing modules
 apply from: 'gradle/curseforge.gradle'
+apply from: 'gradle/maven.gradle'

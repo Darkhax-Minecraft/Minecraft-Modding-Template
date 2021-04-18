@@ -17,6 +17,8 @@ if (!(project.hasProperty('group') || project.hasProperty('groupId'))) {
 
 if (canLoad) {
 
+    project.logger.lifecycle('Loading maven module.')
+    
     project.publishing {
 
         tasks.publish.dependsOn 'build'

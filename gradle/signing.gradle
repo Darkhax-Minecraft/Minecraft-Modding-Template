@@ -22,12 +22,6 @@
 
 def canLoad = true
 
-if (!project.hasProperty('signing.secretKeyRingFile')) {
-
-    project.logger.warn('Skipping PGP signing. No signing.secretKeyRingFile provided.')
-    canLoad = false
-}
-
 if (!project.hasProperty('signing.keyId')) {
 
     project.logger.warn('Skipping PGP signing. No signing.keyId provided.')

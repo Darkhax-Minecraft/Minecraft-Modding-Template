@@ -1,47 +1,55 @@
 apply from: 'gradle/property_helper.gradle'
 apply plugin: 'maven-publish' 
 
-project.publishing {
+if (project.hasProperty('mavenURL')) {
 
-    tasks.publish.dependsOn 'build'
-    
-    publications {
+    project.publishing {
 
-        mavenJava(MavenPublication) {
+        tasks.publish.dependsOn 'build'
         
-            artifactId project.archivesBaseName
+        publications {
 
-            // Base mod archive.
-            artifact jar
+            mavenJava(MavenPublication) {
             
-            // Adds the sources as an artifact.
-            artifact project.sourcesJar {
-                classifier 'sources'
-            }
+                artifactId project.archivesBaseName
 
-            // Adds the javadocs as an artifact.
-            artifact project.javadocJar {
-                classifier 'javadoc'
-            }
-        }
-    }
-
-    repositories {
-    
-        maven {
-        
-            // Sets maven credentials if they are provided. This is generally
-            // only used for external/remote uploads.
-            if (project.hasProperty('userMaven') && project.hasProperty('authMaven')) {
-            
-                credentials {
+                // Base mod archive.
+                artifact jar
                 
-                    username findProperty('mavenUsername')
-                    password findProperty('mavenPassword')
+                // Adds the sources as an artifact.
+                artifact project.sourcesJar {
+                    classifier 'sources'
+                }
+
+                // Adds the javadocs as an artifact.
+                artifact project.javadocJar {
+                    classifier 'javadoc'
                 }
             }
+        }
 
-            url getRequiredString('mavenURL')
+        repositories {
+        
+            maven {
+            
+                // Sets maven credentials if they are provided. This is generally
+                // only used for external/remote uploads.
+                if (project.hasProperty('mavenUsername') && project.hasProperty('mavenPassword')) {
+                
+                    credentials {
+                    
+                        username findProperty('mavenUsername')
+                        password findProperty('mavenPassword')
+                    }
+                }
+
+                url getRequiredString('mavenURL')
+            }
         }
     }
+}
+
+else {
+    
+    project.logger.warn('Skipping maven module. mavenURL property not specified.')
 }

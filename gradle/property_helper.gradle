@@ -21,6 +21,11 @@ def getProperty(name, defaultValue, warn = false) {
     return defaultValue
 }
 
+def getOptionalString(name) {
+
+    return getString(name, '')
+}
+
 def getRequiredString(name) {
 
     return getRequiredProperty(name).toString()
@@ -56,4 +61,5 @@ ext {
     getRequiredString = this.&getRequiredString
     getRequiredProperty = this.&getRequiredProperty
     getExecOutput = this.&getExecOutput
+    getOptionalString = this&getOptionalString
 }

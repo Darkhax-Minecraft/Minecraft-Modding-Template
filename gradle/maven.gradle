@@ -3,7 +3,7 @@ apply plugin: 'maven-publish'
 
 def canLoad = true
 
-if (!project.hasProperty('mavenUrl')) {
+if (!project.hasProperty('mavenURL')) {
     
     canLoad = false;
     project.logger.warn('Skipping maven module. mavenURL property not specified.')
@@ -15,7 +15,7 @@ if (!(project.hasProperty('group') || project.hasProperty('groupId'))) {
     project.logger.warn('Skipping maven module. group property not specified.')
 }
 
-if (project.hasProperty('mavenURL')) {
+if (canLoad) {
 
     project.publishing {
 

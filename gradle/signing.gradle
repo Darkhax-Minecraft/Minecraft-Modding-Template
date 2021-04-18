@@ -25,17 +25,17 @@ def canLoad = true
 // 
 if (!project.hasProperty('signing.secretKeyRingFile') && project.hasProperty('pgpKeyRing')) {
 
-    project.logger.lifecycle('Setting signing.secretKeyRingFile from pgpKeyRing')
-    def pgpKeyRing = project.findProperty('pgpKeyRing')
+    final def keyRing = file project.getProperty('pgpKeyRing')
     
-    if (pgpKeyRing instanceof File) {
+    if (secretsFile.exists() && secretsFile.name.endsWith('.json')) {
     
-        project.ext.set('signing.secretKeyRingFile', pgpKeyRing.getAbsolutePath())
+        project.ext.set('signing.secretKeyRingFile', keyRing.getAbsolutePath())
+        project.logger.lifecycle('Loaded PGP keyring from fallback property.')
     }
     
     else {
     
-        project.ext.set('signing.secretKeyRingFile', pgpKeyRing.toString())
+        project.logger.warn('Failed to load PGP keyring from pgpKeyRing fallback property.')
     }
 }
 

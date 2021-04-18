@@ -133,13 +133,8 @@ dependencies {
     if (project.hasProperty('mixin_id')) {
     
         // Gradle 5.0+ no longer auto-loads annotation processors. Mixin relies
-        // on these to generate the refmap file. For unknown reasons the deps
-        // of the annotation processor are not being added to the classpath so
-        // they are also added here.
-        annotationProcessor 'org.spongepowered:mixin:0.8'
-        annotationProcessor 'com.google.code.gson:gson:2.2.4'
-        annotationProcessor 'com.google.guava:guava:21.0'
-        annotationProcessor 'org.ow2.asm:asm-tree:6.2'
+        // on these to generate the refmap file.
+        annotationProcessor 'org.spongepowered:mixin:0.8:processor'
     }
 }
 

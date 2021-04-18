@@ -8,6 +8,11 @@ apply from: 'gradle/property_helper.gradle'
 
 task updateVersionTracker {
     
+    if (!project.hasProperty('versionTrackerAPI') || !project.hasProperty('versionTrackerUsername')) {
+    
+        project.logger.warn('The updateVersionTracker task was ran but authentication was not provided!')
+    }
+    
     onlyIf {
     
         project.hasProperty('versionTrackerAPI') && project.hasProperty('versionTrackerUsername')
@@ -28,6 +33,7 @@ task updateVersionTracker {
             'uid': apiKey
         ]
     
+        project.logger.lifecycle("Version Check: ${project.ext.modId} for ")
         // Opens a connection to the version tracker API and writes the payload JSON.
         def req = new URL(project.findProperty('versionTrackerAPI')).openConnection()
         req.setRequestMethod('POST')
@@ -37,7 +43,7 @@ task updateVersionTracker {
         req.getOutputStream().write(JsonOutput.toJson(body).getBytes("UTF-8"))
 
         // For the request to be sent we need to read data from the stream.
-        project.logger.lifecycle("Version Check Status: ${req.getResponseCode()}")
-        project.logger.lifecycle("Version Check Response: ${req.getInputStream().getText()}")
+        project.logger.lifecycle("Version Check: Status ${req.getResponseCode()}")
+        project.logger.lifecycle("Version Check: Response ${req.getInputStream().getText()}")
     }
 }

@@ -19,7 +19,28 @@
  | signing.password          | String | The password used when generated the keys.     | 8r+v!$*uaR4K |
  
 */
-if (project.hasProperty('signing.secretKeyRingFile') && project.hasProperty('signing.keyId') && project.hasProperty('signing.password')) {
+
+def canLoad = true
+
+if (!project.hasProperty('signing.secretKeyRingFile')) {
+
+    project.logger.warn('Skipping PGP signing. No signing.secretKeyRingFile provided.')
+    canLoad = false
+}
+
+if (!project.hasProperty('signing.keyId')) {
+
+    project.logger.warn('Skipping PGP signing. No signing.keyId provided.')
+    canLoad = false
+}
+
+if (!project.hasProperty('signing.password')) {
+
+    project.logger.warn('Skipping PGP signing. No signing.password provided.')
+    canLoad = false
+}
+
+if (canLoad) {
 
     apply plugin: 'signing'
 
@@ -28,8 +49,4 @@ if (project.hasProperty('signing.secretKeyRingFile') && project.hasProperty('sig
         project.logger.lifecycle('Artefacts will be signed using PGP.')
         sign publishing.publications
     } 
-}
-
-else {
-    project.logger.warn('Skipping ASC signatures. One or more properties are missing.')
 }

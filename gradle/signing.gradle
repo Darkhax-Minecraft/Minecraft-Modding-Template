@@ -1,0 +1,35 @@
+// This module will load Gradle's built in detached signature plugin. If the 
+// required properties are present Gradle will sign all publishing artefacts
+// with a detached armored ascii file. These files are primarily used by maven
+// to validate the source of an artefact and the integrity of the files.
+
+/*
+ This module will load Gradle's built in signing plugin. When the required 
+ properties are present the plugin will use PGP to sign all published 
+ artefacts and produce detached armoured ASCII signature files (ASC). These 
+ files can be used to verify the authenticity and integrity of the published
+ artefacts. This is primarily used by tools accessing a Maven.
+ 
+ The required properties are as follows
+ 
+ | Name                      | Type   | Description                                    | Example      |
+ |---------------------------|--------|------------------------------------------------|--------------|
+ | signing.secretKeyRingFile | File   | A container file for holding PGP keys.         | *.gpg        |
+ | signing.keyId             | String | The first 8 characters of the specific key ID. | 39280BAE     |
+ | signing.password          | String | The password used when generated the keys.     | 8r+v!$*uaR4K |
+ 
+*/
+if (project.hasProperty('signing.secretKeyRingFile') && project.hasProperty('signing.keyId') && project.hasProperty('signing.password')) {
+
+    apply plugin: 'signing'
+
+    signing {
+    
+        project.logger.lifecycle('Artefacts will be signed using PGP.')
+        sign publishing.publications
+    } 
+}
+
+else {
+    project.logger.warn('Skipping ASC signatures. One or more properties are missing.')
+}

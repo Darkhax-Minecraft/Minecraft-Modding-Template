@@ -61,5 +61,5 @@ ext {
     getRequiredString = this.&getRequiredString
     getRequiredProperty = this.&getRequiredProperty
     getExecOutput = this.&getExecOutput
-    getOptionalString = this&getOptionalString
+    getOptionalString = this.&getOptionalString
 }

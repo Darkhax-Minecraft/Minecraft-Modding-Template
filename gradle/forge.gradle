@@ -121,6 +121,11 @@ minecraft {
 
 dependencies {
 
+    annotationProcessor 'org.spongepowered:mixin:0.8'
+    annotationProcessor 'com.google.code.gson:gson:2.2.4'
+    annotationProcessor 'com.google.guava:guava:21.0'
+    annotationProcessor 'org.ow2.asm:asm-tree:6.2'
+        
     // Sets Minecraft and Forge as a dependency for the project.
     minecraft "net.minecraftforge:forge:${project.ext.mcVersion}-${forgeVersion}"
     
@@ -179,9 +184,9 @@ task runServer() {
 }
 
 // Forge's Jar Signer
-task signJar(type: net.minecraftforge.gradle.common.task.SignJar, dependsOn: jar) {
-    
-    if (project.hasProperty('keyStore')) {
+if (project.hasProperty('keyStore')) {
+
+    task signJar(type: net.minecraftforge.gradle.common.task.SignJar, dependsOn: jar) {
     
         keyStore = project.findProperty('keyStore')
         alias = project.findProperty('keyStoreAlias')
@@ -190,10 +195,7 @@ task signJar(type: net.minecraftforge.gradle.common.task.SignJar, dependsOn: jar
         inputFile = jar.archivePath
         outputFile = jar.archivePath
     }
-}
-
-if (project.hasProperty('keyStore')) {
-
+    
     build.dependsOn signJar
 }
 

@@ -184,19 +184,16 @@ task runServer() {
 }
 
 // Forge's Jar Signer
-// Jar Signing
-import net.minecraftforge.gradle.common.task.SignJar
+def canSignJar = project.hasProperty('keyStore') && project.hasProperty('keyStorePass') && project.hasProperty('keyStoreKeyPass') && project.hasProperty('keyStoreAlias')
 
-task signJar(type: SignJar, dependsOn: jar) {
-
+task signJar(type: net.minecraftforge.gradle.common.task.SignJar, dependsOn: jar) {
+    
     onlyIf {
     
-        project.hasProperty('keyStore')
+        canSignJar
     }
     
-    if (project.hasProperty('keyStore')) {
-    
-        project.logger.info('Signing jar ' + jar.archivePath.getName());
+    if (canSignJar) {
     
         keyStore = project.findProperty('keyStore')
         alias = project.findProperty('keyStoreAlias')
@@ -204,12 +201,12 @@ task signJar(type: SignJar, dependsOn: jar) {
         keyPass = project.findProperty('keyStoreKeyPass')
         inputFile = jar.archivePath
         outputFile = jar.archivePath
+        
+        build.dependsOn signJar
     }
-
+    
     else {
     
-        project.logger.warn('Could not sign ' + jar.archivePath.getName() + '. No keyStore property could be found')
+        project.logger.warn('Jar signing is disabled for this build. One or more keyStore properties are not specified.')
     }
 }
-
-build.dependsOn signJar

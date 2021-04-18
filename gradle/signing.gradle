@@ -23,14 +23,14 @@
 def canLoad = true
 
 // 
-if (!project.hasProperty('signing.secretKeyRingFile') && project.hasProperty('pgpSecretKeyRingFile')) {
+if (!project.hasProperty('signing.secretKeyRingFile') && project.hasProperty('pgpKeyRing')) {
 
-    def pgpSecretKeyRingFile = project.findProperty('pgpSecretKeyRingFile')
+    def pgpKeyRing = project.findProperty('pgpKeyRing')
     
-    if (pgpSecretKeyRingFile instanceof File) {
+    if (pgpKeyRing instanceof File) {
     
-        project.ext.set('signing.secretKeyRingFile', pgpSecretKeyRingFile.getAbsolutePath())
-        project.logger.lifecycle('Setting signing.secretKeyRingFile from pgpSecretKeyRingFile')
+        project.ext.set('signing.secretKeyRingFile', pgpKeyRing.getAbsolutePath())
+        project.logger.lifecycle('Setting signing.secretKeyRingFile from pgpKeyRing')
     }
 }
 

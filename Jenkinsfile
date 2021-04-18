@@ -17,7 +17,7 @@ pipeline {
             
                     echo 'Building project.'
                     sh 'chmod +x gradlew'
-                    sh './gradlew clean build publish curseforge updateVersionTracker --stacktrace --warn'
+                    sh './gradlew clean build publish curseforge updateVersionTracker hideOfficialWarningUntilChanged --stacktrace --warn'
                 }
             }
         }

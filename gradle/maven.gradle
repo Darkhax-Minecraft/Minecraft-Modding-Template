@@ -1,3 +1,4 @@
+apply from: 'gradle/property_helper.gradle'
 apply plugin: 'maven-publish' 
 
 project.publishing {
@@ -35,22 +36,12 @@ project.publishing {
             
                 credentials {
                 
-                    username findProperty('userMaven')
-                    password findProperty('authMaven')
+                    username findProperty('mavenUsername')
+                    password findProperty('mavenPassword')
                 }
             }
 
-            // Uploads maven artifacts to a local maven if specified.
-            if (project.hasProperty('localMaven')) {
-            
-                url project.findProperty('localMaven')
-            }
-            
-            // Uploads maven artifacts to a remote maven if specified.
-            else if (project.hasProperty('urlMaven')) {
-            
-                url project.findProperty('urlMaven')
-            }
+            url getRequiredString('mavenURL')
         }
     }
 }

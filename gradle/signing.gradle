@@ -22,6 +22,24 @@
 
 def canLoad = true
 
+// 
+if (!project.hasProperty('signing.secretKeyRingFile') && project.hasProperty('pgpSecretKeyRingFile')) {
+
+    def pgpSecretKeyRingFile = project.findProperty('pgpSecretKeyRingFile')
+    
+    if (pgpSecretKeyRingFile instanceof File) {
+    
+        project.ext.set('signing.secretKeyRingFile', pgpSecretKeyRingFile.getAbsolutePath())
+        project.logger.lifecycle('Setting signing.secretKeyRingFile from pgpSecretKeyRingFile')
+    }
+}
+
+if (!project.hasProperty('signing.secretKeyRingFile')) {
+
+    project.logger.warn('Skipping PGP signing. No signing.secretKeyRingFile provided.')
+    canLoad = false
+}
+
 if (!project.hasProperty('signing.keyId')) {
 
     project.logger.warn('Skipping PGP signing. No signing.keyId provided.')

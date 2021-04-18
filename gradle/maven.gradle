@@ -1,6 +1,20 @@
 apply from: 'gradle/property_helper.gradle'
 apply plugin: 'maven-publish' 
 
+def canLoad = true
+
+if (!project.hasProperty('mavenUrl')) {
+    
+    canLoad = false;
+    project.logger.warn('Skipping maven module. mavenURL property not specified.')
+}
+
+if (!(project.hasProperty('group') || project.hasProperty('groupId'))) {
+    
+    canLoad = false;
+    project.logger.warn('Skipping maven module. group property not specified.')
+}
+
 if (project.hasProperty('mavenURL')) {
 
     project.publishing {
@@ -47,9 +61,4 @@ if (project.hasProperty('mavenURL')) {
             }
         }
     }
-}
-
-else {
-    
-    project.logger.warn('Skipping maven module. mavenURL property not specified.')
 }

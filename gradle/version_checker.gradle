@@ -1,3 +1,6 @@
+// This module adds a task that will update the latest version in Jared's
+// update checker API. This is a private service which requires an API key to
+// use. Contact https://twitter.com/jaredlll08 for more info.
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 

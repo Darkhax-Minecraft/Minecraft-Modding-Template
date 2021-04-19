@@ -11,3 +11,8 @@ build/
 
 # General
 run/
+
+# Annotation Processing
+/.apt_generated_tests/
+/Users/
+.factorypath

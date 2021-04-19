@@ -4,7 +4,7 @@
  Property keys ending with _comment will be skipped.
  
  If a secretFile property exists and points to a valid JSON file that file will
- be automatically loaded. You can manually load a file using the loadSecrets
+ be automatically loaded. You can manually load a file using the loadProperties
  method.
 */
 import groovy.json.JsonSlurper
@@ -16,21 +16,21 @@ if (project.hasProperty('secretFile')) {
     
     if (secretsFile.exists() && secretsFile.name.endsWith('.json')) {
     
-        loadSecrets(secretsFile)
+        loadProperties(secretsFile)
         project.logger.lifecycle('Automatically loading properties from the secretFile')
     }
 }
 
-// Loads secrets using a specified json file.
-def loadSecrets(secretFile) {
+// Loads properties using a specified json file.
+def loadProperties(propertyFile) {
 
-    if (secretFile.exists()) {
+    if (propertyFile.exists()) {
     
-        secretFile.withReader {
+        propertyFile.withReader {
         
-            Map secretMap = new JsonSlurper().parse it
+            Map propMap = new JsonSlurper().parse it
             
-            for (entry in secretMap) {
+            for (entry in propMap) {
             
                 // Filter entries that use _comment in the key.
                 if (!entry.key.endsWith('_comment')) {
@@ -39,19 +39,19 @@ def loadSecrets(secretFile) {
                 }
             }
             
-            project.logger.lifecycle('Successfully loaded ' + secretMap.size() + ' secret properties')
-            secretMap.clear()
+            project.logger.lifecycle('Successfully loaded ' + propMap.size() + ' properties')
+            propMap.clear()
         }
     }
     
     else {
     
-        project.logger.warn('The secret file ' + secretFile.getName() + ' could not be loaded. It does not exist.')
+        project.logger.warn('The property file ' + propertyFile.getName() + ' could not be loaded. It does not exist.')
     }
 }
 
 // Allows other scripts to use these methods.
 ext {
 
-    loadSecrets = this.&loadSecrets
+    loadProperties = this.&loadProperties
 }

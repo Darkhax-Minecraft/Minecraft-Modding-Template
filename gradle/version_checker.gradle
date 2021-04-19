@@ -1,6 +1,9 @@
-// This module adds a task that will update the latest version in Jared's
-// update checker API. This is a private service which requires an API key to
-// use. Contact https://twitter.com/jaredlll08 for more info.
+/*
+ This module adds a task that can update the latest version in Jared's update
+ checker API. This is a private service which requires an API key to use.
+ 
+ For further information contact Jared: https://twitter.com/jaredlll08
+*/
 import groovy.json.JsonSlurper
 import groovy.json.JsonOutput
 
@@ -10,7 +13,7 @@ task updateVersionTracker {
     
     if (!project.hasProperty('versionTrackerAPI') || !project.hasProperty('versionTrackerUsername')) {
     
-        project.logger.warn('The updateVersionTracker task was ran but authentication was not provided!')
+        project.logger.warn('Skipping Version Checker update. Authentication is required!')
     }
     
     onlyIf {
@@ -33,7 +36,8 @@ task updateVersionTracker {
             'uid': apiKey
         ]
     
-        project.logger.lifecycle("Version Check: ${project.ext.modId} for ")
+        project.logger.lifecycle("Version Check: ${project.ext.modId} for ${project.version}")
+        
         // Opens a connection to the version tracker API and writes the payload JSON.
         def req = new URL(project.findProperty('versionTrackerAPI')).openConnection()
         req.setRequestMethod('POST')

@@ -120,11 +120,6 @@ minecraft {
 }
 
 dependencies {
-
-    annotationProcessor 'org.spongepowered:mixin:0.8'
-    annotationProcessor 'com.google.code.gson:gson:2.2.4'
-    annotationProcessor 'com.google.guava:guava:21.0'
-    annotationProcessor 'org.ow2.asm:asm-tree:6.2'
         
     // Sets Minecraft and Forge as a dependency for the project.
     minecraft "net.minecraftforge:forge:${project.ext.mcVersion}-${forgeVersion}"

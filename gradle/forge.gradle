@@ -138,6 +138,17 @@ dependencies {
     }
 }
 
+
+processResources {
+
+    from(sourceSets.main.resources.srcDirs) {
+    
+        include 'META-INF/mods.toml'
+        include 'pack.mcmeta'
+        expand project.properties
+    }
+}
+
 jar {
     manifest {
     

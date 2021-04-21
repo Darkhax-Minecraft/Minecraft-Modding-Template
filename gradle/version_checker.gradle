@@ -32,7 +32,7 @@ task updateVersionTracker {
             'projectName': project.ext.modId,
             'gameVersion': project.ext.mcVersion,
             'projectVersion': project.version,
-            'homepage': project.ext.modDownload,
+            'homepage': project.ext.modHomepage,
             'uid': apiKey
         ]
     

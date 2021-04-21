@@ -8,7 +8,7 @@ modId="examplemod"
 updateJSONURL="https://updates.blamejared.com/get?n=examplemod&gv=1.16.5"
 version="${version}"
 displayName="${modName}"
-displayURL="${modDownload}"
+displayURL="${modHomepage}"
 credits="${modCredits}"
 authors="${modAuthor}"
 description='''

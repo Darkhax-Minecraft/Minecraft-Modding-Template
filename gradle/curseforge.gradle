@@ -61,13 +61,12 @@ curseforge {
 
     if (project.hasProperty('curse_project') && project.hasProperty('curse_auth')) {
     
-        def releaseType = getDefaultString('curse_release_type', 'alpha')
         apiKey = findProperty('curse_auth')
     
         project {
 
             id = "${curse_project}"
-            releaseType = releaseType
+            releaseType = getDefaultString('curse_release_type', 'alpha')
             changelog = project.ext.changelog
             changelogType = 'markdown'
 

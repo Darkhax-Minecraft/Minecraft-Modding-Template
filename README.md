@@ -1,38 +1,34 @@
-# Minecraft-Modding-Template
-A flexible template for creating Minecraft mods. Intended for power users and beginners.
+This mod provides an example Minecraft mod that can be referenced by other mod developers. Players may also use this mod to ensure that mods are being properly loaded.
 
-## Forge Module
-The Forge module will allow your project to create Forge based developer environments and produce compiled mods for the Forge mod loader.
+## Project Goals
+1) Provide build modules and related tools for mod developers.
+2) Document the various tools, apis, plugins, and modules used by mod developers.
+3) Test build tools through continuous integration.
 
-### Required Properties
-This module requires the following properties to run properly. These are generally set using the `gradle.properties` file.
+ 
+## Player Information
+When loaded into a Minecraft environment the example mod will print it's name and version to the console. There are no additional requirements or functionality in game at this time.
 
-| Property          | Example    | Description                                                                    |
-|-------------------|------------|--------------------------------------------------------------------------------|
-| minecraft_version | 1.16.5     | The version of Minecraft to use.                                               |
-| forge_version     | 36.1.2     | The version of Forge to use.                                                   |
-| mod_name          | ExampleMod | The name of your mod. It is recommended to only use alphabetic characters.     |
-| mod_version       | 1.0        | The version of your mod. Please use [Semantic Versioning](https://semver.org). |
+ 
+## Developer Information
+This mod is generated using the example mod template on GitHub. This template contains many modules and plugins which can be used to maximize the visibility and presence of your mod while reducing the amount of work required by the developer. This template is licensed under Creative Commons 0 and may be freely used by anyone to create new Minecraft mods or enhance their existing projects. Credit is appreciated but not required.
 
-### Optional Properties
-These properties are completely optional. They are used to change default behaviors or enable additional functionality.
+## Current features include
 
-| Property         | Default | Description                                                                           |
-|------------------|---------|---------------------------------------------------------------------------------------|
-| forge_client_dir | run     | The directory to run the dev client in.                                               |
-| forge_server_dir | run     | The directory to run the dev server in.                                               |
-| forge_log_level  | debug   | The default logging level for Forge.                                                  |
-| forge_at         | null    | Enables custom access transformers. Defines the path to your access transformer file. |
-| forge_log_colors | true    | Enables ANSI log colors in the console/terminal of the dev environment.               |
-|                  |         |                                                                                       |
+    Appending build number from CI environment
+    Generating Sources and Javadoc artefacts
+    Common Java manifest properties
+    Autodeploy build artefacts to CurseForge
+    Post to Discord on CurseForge upload
+    Generate Forge mod, including mixins, access transformers, and other properties
+    Generate changelogs from git commit messages
+    Deploy build artefacts to maven
+    Minify JSON files at build time
+    Build time properties from secret environmental variables
+    Signing build artefacts with PGP signatures
+    In-game update/version checker
 
-### Tasks
-Several new tasks are made available when using this module. These tasks can be ran from the command line or from your IDE.
-
-| Name            | Description                                                    |
-|-----------------|----------------------------------------------------------------|
-| runClient       | Runs the development version of the game client with your mod. |
-| runServer       | Runs the development version of the game server with your mod. |
-| genEclipseRuns  | Generates run files for the Eclipse IDE.                       |
-| genIntellijRuns | Generates run files for the Intellij IDEA IDE.                 |
-| genVSCodeRuns   | Generates run files for the VSCode IDE.                        |
+ 
+## Future Updates
+This project will be updated with additional features, documentation, and optimizations as time permits. The immediate plans include additional documentation, Twitter integration, and Fabric support.
+ 

@@ -158,7 +158,7 @@ if (project.hasProperty('curse_discord_webhook')) {
     
         catch (IOException e) {
         
-            project.logger.error('Failed to push CF Discord webhook.')
+            project.logger.error('Failed to push CF Discord webhook.', e)
         }
     }
 }

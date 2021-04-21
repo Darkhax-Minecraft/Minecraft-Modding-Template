@@ -67,7 +67,7 @@ curseforge {
 
             id = "${curse_project}"
             releaseType = getDefaultString('curse_release_type', 'alpha')
-            changelog = project.ext.changelog
+            changelog = project.ext.modChangelog
             changelogType = 'markdown'
 
             if (project.hasProperty('curse_versions')) {
@@ -141,15 +141,12 @@ if (project.hasProperty('curse_discord_webhook')) {
                 def embed = new Embed();
                 embed.addField('Download', "${projectPage}/files/${newFileId}", false)
                 
-                project.logger.warn('changelog1: ' + project.ext.modChangelog)
-                
                 // Add a changelog field if a changelog exists.
                 if (project.ext.modChangelog && !project.ext.modChangelog.isEmpty()) {
                 
                     // Only include the first 240 chars of the changelog to
                     // avoid their size limits.
-                    // embed.addField('Changelog', project.ext.modChangelog.take(500), false)
-                    project.logger.lifecycle('changelog: ' + project.ext.modChangelog.take(500))
+                    embed.addField('Changelog', project.ext.modChangelog.take(500), false)
                 }
                 
                 embed.setColor(0xFF8000)
@@ -161,7 +158,7 @@ if (project.hasProperty('curse_discord_webhook')) {
     
         catch (IOException e) {
         
-            project.logger.error('Failed to push CF Discord webhook.', e)
+            project.logger.error('Failed to push CF Discord webhook.')
         }
     }
 }

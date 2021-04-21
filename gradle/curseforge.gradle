@@ -142,12 +142,12 @@ if (project.hasProperty('curse_discord_webhook')) {
                 embed.addField('Download', "${projectPage}/files/${newFileId}", false)
                 
                 // Add a changelog field if a changelog exists.
-                if (!project.ext.modChangelog?.trim()) {
+                if (project.ext.modChangelog && !project.ext.modChangelog.isEmpty()) {
                 
                     // Only include the first 240 chars of the changelog to
                     // avoid their size limits.
                     // embed.addField('Changelog', project.ext.modChangelog.take(500), false)
-                    project.logger.lifecycle(project.ext.modChangelog.take(500))
+                    project.logger.lifecycle('changelog: ' + project.ext.modChangelog.take(500))
                 }
                 
                 embed.setColor(0xFF8000)

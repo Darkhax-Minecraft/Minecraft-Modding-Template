@@ -141,7 +141,7 @@ if (project.hasProperty('curse_discord_webhook')) {
                 def embed = new Embed();
                 embed.addField('Download', "${projectPage}/files/${newFileId}", false)
                 
-                project.logger.lifecycle('changelog1: ' + project.ext.modChangelog)
+                project.logger.warn('changelog1: ' + project.ext.modChangelog)
                 
                 // Add a changelog field if a changelog exists.
                 if (project.ext.modChangelog && !project.ext.modChangelog.isEmpty()) {

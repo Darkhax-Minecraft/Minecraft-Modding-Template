@@ -70,9 +70,12 @@ curseforge {
             changelog = project.ext.changelog
             changelogType = 'markdown'
 
-            for (String version : getOptionalString('curse_versions').split(', ')) {
-        
-                addGameVersion version
+            if (project.hasProperty('curse_versions')) {
+            
+                for (String version : getOptionalString('curse_versions').split(', ')) {
+            
+                    addGameVersion version
+                }
             }
 
             mainArtifact(jar) {

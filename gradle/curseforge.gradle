@@ -25,11 +25,11 @@
  If a changelog exists via project.ext.changelog the first 240 characters will 
  also be included in the message.
  
- | Name             | Required | Type   | Description                                              | Example                                                 |
- |------------------|----------|--------|----------------------------------------------------------|---------------------------------------------------------|
- | curse_project    | true     | String | The project ID to upload to.                             | 238222                                                  |
- | discordCFWebhook | true     | String | The webhook URL for the channel to post in.              | https://discordapp.com/api/webhooks/*****               |
- | curse_page       | false    | String | A link to the project on Curse, used for download links. | https://www.curseforge.com/minecraft/mc-mods/examplemod |
+ | Name                  | Required | Type   | Description                                              | Example                                                 |
+ |-----------------------|----------|--------|----------------------------------------------------------|---------------------------------------------------------|
+ | curse_project         | true     | String | The project ID to upload to.                             | 238222                                                  |
+ | curse_discord_webhook | true     | String | The webhook URL for the channel to post in.              | https://discordapp.com/api/webhooks/*****               |
+ | curse_page            | false    | String | A link to the project on Curse, used for download links. | https://www.curseforge.com/minecraft/mc-mods/examplemod |
 */
 buildscript {
 
@@ -106,7 +106,7 @@ curseforge {
     }
 }
 
-if (project.hasProperty('discordCFWebhook')) {
+if (project.hasProperty('curse_discord_webhook')) {
 
     tasks.getByName("curseforge").doLast {
     
@@ -116,7 +116,7 @@ if (project.hasProperty('discordCFWebhook')) {
             def newFileId = tasks.getByName("curseforge${curse_project}").property('mainArtifact').fileID
     
             // Create a new webhook instance for Discord
-            def webhook = new Webhook(findProperty('discordCFWebhook'), "${project.ext.modName} CurseForge Gradle Upload")
+            def webhook = new Webhook(findProperty('curse_discord_webhook'), "${project.ext.modName} CurseForge Gradle Upload")
         
             // Craft a message to send to Discord using the webhook.
             def message = new Message()      

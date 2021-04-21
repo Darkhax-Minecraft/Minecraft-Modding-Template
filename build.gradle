@@ -11,6 +11,7 @@ ext.modCredits = getDefaultString('mod_credits', ext.modAuthor)
 ext.modDescription = getOptionalString('mod_description')
 ext.modChangelog = getOptionalString('mod_changelog')
 ext.modHomepage = getOptionalString('mod_homepage')
+ext.modSource = getOptionalString('mod_source')
 ext.modIssues = getOptionalString('mod_issues')
 
 // Load Minecraft specific properties

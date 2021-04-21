@@ -1,6 +1,6 @@
 apply from: 'gradle/property_helper.gradle'
 
-def gitRepo = getDefaultString('gitRemote', getExecOutput(['git', 'remote', 'get-url', 'origin']))
+def gitRepo = project.ext.modSource ?: project.findProperty('gitRemote', getExecOutput(['git', 'remote', 'get-url', 'origin']))
 def gitCommit = System.getenv('GIT_COMMIT') ?: getExecOutput(['git', 'log', '-n', '1', '--pretty=tformat:%h' ])
 def gitPrevCommit = System.getenv('GIT_PREVIOUS_COMMIT')
 

@@ -80,23 +80,26 @@ curseforge {
 
             mainArtifact(jar) {
             
-                relations {
-
-                    if (project.hasProperty('curse_requirements')) {
+                if (project.hasProperty('curse_requirements') || project.hasProperty('curse_optionals')) {
                 
-                        for (String req : project.findProperty('curse_requirements').split(', ')) {
+                    relations {
+
+                        if (project.hasProperty('curse_requirements')) {
                     
-                            requiredLibrary req
+                            for (String req : project.findProperty('curse_requirements').split(', ')) {
+                        
+                                requiredLibrary req
+                            }
+                        }
+                    
+                        if (project.hasProperty('curse_optionals')) {
+                    
+                            for (String req : project.findProperty('curse_optionals').split(', ')) {
+                        
+                                optionalLibrary req
+                            }
                         }
                     }
-                
-                    if (project.hasProperty('curse_optionals')) {
-                
-                        for (String req : project.findProperty('curse_optionals').split(', ')) {
-                    
-                            optionalLibrary req
-                        }
-                   }
                 }
             }
         }

@@ -159,7 +159,7 @@ if (project.hasProperty('curse_discord_webhook')) {
                 
                 if (mavenCoord) {
                 
-                    embed.addField('Maven', "'${mavenCoord}'")
+                    embed.addField('Maven', "'${mavenCoord}'".toString())
                 }
             }
             

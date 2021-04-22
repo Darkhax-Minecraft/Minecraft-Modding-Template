@@ -152,17 +152,6 @@ if (project.hasProperty('curse_discord_webhook')) {
                 embed.addField('Changelog', project.ext.modChangelog.take(500), false)
             }
             
-            // Adds the maven coordinate to the Webhook message.
-            if (project.hasProperty('mavenURL') && project.hasProperty('group')) {
-            
-                def mavenCoord = project.getMavenCoordinateString()
-                
-                if (mavenCoord) {
-                
-                    embed.addField('Maven', "'${mavenCoord}'".toString(), false)
-                }
-            }
-            
             embed.setColor(0xFF8000)
             message.addEmbed(embed)
 

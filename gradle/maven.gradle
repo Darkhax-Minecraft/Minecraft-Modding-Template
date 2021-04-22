@@ -64,3 +64,19 @@ if (canLoad) {
         }
     }
 }
+
+def getMavenCoordinateString() {
+
+    return "group: '${project.group}', name: '${project.name}', version: '${project.version}'"
+}
+
+def getMavenCoordinateStringCompact() {
+
+    return "${project.group}:${project.name}:${project.version}"
+}
+
+ext {
+
+    getMavenCoordinateString = this.&getMavenCoordinateString
+    getMavenCoordinateStringCompact = this.&getMavenCoordinateStringCompact
+}

@@ -7,13 +7,13 @@ buildscript {
         maven { 
         
             name 'Official Forge Maven'
-            url 'https://files.minecraftforge.net/maven'
+            url 'https://maven.minecraftforge.net'
         }
         
         maven {
             
             name 'Sponge / Mixin Maven'
-            url 'https://repo.spongepowered.org/repository/maven-public/'
+            url 'https://repo.spongepowered.org/repository/maven-public'
         }
         
         mavenCentral()

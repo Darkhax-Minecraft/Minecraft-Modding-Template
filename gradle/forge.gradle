@@ -27,7 +27,6 @@ buildscript {
 }
 
 apply plugin: net.minecraftforge.gradle.userdev.UserDevPlugin
-apply plugin: org.spongepowered.asm.gradle.plugins.MixinGradlePlugin
 apply from: 'gradle/property_helper.gradle'
 
 // Configurable Forge Properties
@@ -36,6 +35,8 @@ def clientRunDir = getDefaultString('forge_client_dir', 'run')
 def serverRunDir = getDefaultString('forge_server_dir', 'run')
 def loggingLevel = getDefaultString('forge_log_level', 'debug')
 def loggingANSI = getDefaultProperty('forge_log_ansi', true).asBoolean()
+def mappingChannel = getDefaultString('forge_mapping_channel', 'official')
+def mappingVersion = getDefaultString('forge_mapping_version', project.ext.mcVersion)
 
 archivesBaseName = "${mod_name}-${minecraft_version}"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
@@ -43,7 +44,7 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 minecraft {
 
     // Loads mojmaps for the current MC version.
-    mappings channel: 'official', version: project.ext.mcVersion
+    mappings channel: mappingChannel, version: mappingVersion
     
     // Loads access transofrmers if the user has specified them.
     if (project.hasProperty('forge_at')) {
@@ -159,11 +160,13 @@ jar {
     }
 }
 
-mixin {
+if (project.hasProperty('mixin_id')) {
 
-    // Tells the mixin plugin where to put the generated refmap file.
-    if (project.hasProperty('mixin_id')) {
+    apply plugin: org.spongepowered.asm.gradle.plugins.MixinGradlePlugin
     
+    mixin {
+
+        // Tells the mixin plugin where to put the generated refmap file.
         add sourceSets.main, "${mixin_id}.refmap.json"
     }
 }

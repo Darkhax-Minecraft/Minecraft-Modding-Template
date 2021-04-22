@@ -1,0 +1,11 @@
+[
+    {
+        "modid": "examplemod",
+        "name": "${modName}",
+        "description": "${modDescription}",
+        "version": "${version}",
+        "url": "${modHomepage}",
+        "authorList": [ "${modAuthor}" ],
+        "credits": "${modCredits}"
+    }
+]

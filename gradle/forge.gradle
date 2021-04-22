@@ -139,7 +139,7 @@ processResources {
 
     from(sourceSets.main.resources.srcDirs) {
     
-        include 'META-INF/mods.toml'
+        include 'mcmod.info'
         include 'pack.mcmeta'
         expand project.properties
     }

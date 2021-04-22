@@ -3,11 +3,11 @@ package net.darkhax.examplemod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forgespi.language.IModInfo;
+import net.minecraftforge.fml.common.ModContainer;
 
-@Mod(ExampleMod.MOD_ID)
+@Mod(modid = ExampleMod.MOD_ID)
 public class ExampleMod {
     
     public static final String MOD_ID = "examplemod";
@@ -15,9 +15,7 @@ public class ExampleMod {
     
     public ExampleMod() {
         
-    	for (IModInfo modInfo : ModList.get().getModFileById(MOD_ID).getMods()) {
-    		
-    		LOGGER.info("Loaded {} v{}", modInfo.getModId(), modInfo.getVersion().toString());
-    	}
+    	final ModContainer container = Loader.instance().getIndexedModList().get(MOD_ID);
+    	LOGGER.info("Loaded {} v{}", container.getName(), container.getDisplayVersion());
     }
 }

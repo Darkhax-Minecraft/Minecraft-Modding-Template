@@ -136,24 +136,37 @@ if (project.hasProperty('curse_discord_webhook')) {
                 project.logger.warn("CurseForge Webhook falling back to mod homepage for download link. ${projectPage}")
             }
             
+            def embed = new Embed();
+            
+            // Add Curseforge DL link if available.
             if (projectPage) {
             
-                def embed = new Embed();
                 embed.addField('Download', "${projectPage}/files/${newFileId}", false)
-                
-                // Add a changelog field if a changelog exists.
-                if (project.ext.modChangelog && !project.ext.modChangelog.isEmpty()) {
-                
-                    // Only include the first 240 chars of the changelog to
-                    // avoid their size limits.
-                    embed.addField('Changelog', project.ext.modChangelog.take(500), false)
-                }
-                
-                embed.setColor(0xFF8000)
-                message.addEmbed(embed)
-
-                webhook.sendMessage(message)
             }
+            
+            // Add a changelog field if a changelog exists.
+            if (project.ext.modChangelog && !project.ext.modChangelog.isEmpty()) {
+                
+                // Only include the first 240 chars of the changelog to
+                // avoid their size limits.
+                embed.addField('Changelog', project.ext.modChangelog.take(500), false)
+            }
+            
+            // Adds the maven coordinate to the Webhook message.
+            if (project.hasProperty('mavenURL') && project.hasProperty('group')) {
+            
+                def mavenCoord = project.getMavenCoordinateString()
+                
+                if (mavenCoord) {
+                
+                    embed.addField('Maven', "'${mavenCoord}'"
+                }
+            }
+            
+            embed.setColor(0xFF8000)
+            message.addEmbed(embed)
+
+            webhook.sendMessage(message)
         }
     
         catch (IOException e) {

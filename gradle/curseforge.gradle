@@ -167,7 +167,7 @@ if (project.hasProperty('curse_discord_webhook')) {
 
 task postTweet (type: net.darkhax.tweedle.TaskPostTweet){
     
-    def canLoad = hasProperty('twitter_api_key') && hasProperty('twitter_api_key_secret') && hasProperty('twitter_access_token') && hasProperty('twitter_access_token_secret')
+    def canLoad = project.hasProperty('twitter_api_key') && project.hasProperty('twitter_api_key_secret') && project.hasProperty('twitter_access_token') && project.hasProperty('twitter_access_token_secret')
     
     if (canLoad) {
     
@@ -177,7 +177,8 @@ task postTweet (type: net.darkhax.tweedle.TaskPostTweet){
     
     else {
     
-        project.logger.warn("Skipping Twitter plugin. Auth tokens not provided.")
+        project.logger.warn("Skipping Twitter plugin. APIKey: ${project.hasProperty('twitter_api_key')} ${project.hasProperty('twitter_api_key_secret')} AccessToken: ${project.hasProperty('twitter_access_token')} ${project.hasProperty('twitter_access_token_secret')}")
+        
     }
     
     onlyIf {

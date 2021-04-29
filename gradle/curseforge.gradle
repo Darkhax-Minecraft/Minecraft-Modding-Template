@@ -188,7 +188,7 @@ task postTweet (type: net.darkhax.tweedle.TaskPostTweet){
     
         // Reads the file ID given to us by CurseForge
         def newFileId = tasks.getByName("curseforge${curse_project}").property('mainArtifact').fileID
-        def tweetBody = "${project.ext.modName} ${project.version} for Minecraft ${project.ext.mcVersion} has been released. #${project.ext.modName.toLowerCase().replaceAll("[^a-zA-Z]", "")}")
+        def tweetBody = "${project.ext.modName} ${project.version} for Minecraft ${project.ext.mcVersion} has been released. #${project.ext.modName.toLowerCase().replaceAll("[^a-zA-Z]", "")}"
         
         if (projectPage && newFileId) {
             

@@ -189,12 +189,7 @@ task postTweet (type: net.darkhax.tweedle.TaskPostTweet){
     }
 }
 
-if (canTwitter) {
-
-    postTweet.mustRunAfter tasks.getByName('curseforge')
-}
-    
-else {
+if (!canTwitter) {
     
     project.logger.warn("Skipping Twitter plugin. APIKey: ${project.hasProperty('twitter_api_key')} ${project.hasProperty('twitter_api_key_secret')} AccessToken: ${project.hasProperty('twitter_access_token')} ${project.hasProperty('twitter_access_token_secret')}")
 }

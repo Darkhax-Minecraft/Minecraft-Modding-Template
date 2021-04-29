@@ -57,6 +57,13 @@ import com.diluv.schoomp.message.embed.Footer
 apply from: 'gradle/property_helper.gradle'
 apply plugin: com.matthewprenger.cursegradle.CurseGradlePlugin
 
+def projectPage = project.findProperty('curse_page')
+            
+if (!projectPage && project.ext.modHomepage && project.ext.modHomepage.startsWith('https://www.curseforge.com/minecraft/mc-mods/')) {
+                
+    projectPage = project.ext.modHomepage
+}
+            
 curseforge {
 
     if (project.hasProperty('curse_project') && project.hasProperty('curse_auth')) {
@@ -127,14 +134,6 @@ if (project.hasProperty('curse_discord_webhook')) {
             def message = new Message()      
             message.setUsername(project.ext.modName)
             message.setContent("${project.ext.modName} ${project.version} for Minecraft ${project.ext.mcVersion} has been published!")
-        
-            def projectPage = project.findProperty('curse_page')
-            
-            if (!projectPage && project.ext.modHomepage && project.ext.modHomepage.startsWith('https://www.curseforge.com/minecraft/mc-mods/')) {
-                
-                projectPage = project.ext.modHomepage
-                project.logger.warn("CurseForge Webhook falling back to mod homepage for download link. ${projectPage}")
-            }
             
             def embed = new Embed();
             
@@ -162,5 +161,40 @@ if (project.hasProperty('curse_discord_webhook')) {
         
             project.logger.error('Failed to push CF Discord webhook.')
         }
+    }
+}
+
+task postTweet (type: net.darkhax.tweedle.TaskPostTweet){
+    
+    def canLoad = hasProperty('twitter_api_key') && hasProperty('twitter_api_key_secret') && hasProperty('twitter_access_token') && hasProperty('twitter_access_token_secret')
+    
+    if (canLoad) {
+    
+        addClient(project.findProperty('twitter_api_key'), project.findProperty('twitter_api_key_secret'), project.findProperty('twitter_access_token'), project.findProperty('twitter_access_token_secret'))        
+        dependsOn tasks.getByName('curseforge')
+    }
+    
+    else {
+    
+        project.lifecycle.info("Skipping Twitter plugin. Auth tokens not provided.")
+    }
+    
+    onlyIf {
+    
+        canLoad
+    }
+    
+    doLast {
+    
+        // Reads the file ID given to us by CurseForge
+        def newFileId = tasks.getByName("curseforge${curse_project}").property('mainArtifact').fileID
+        def tweetBody = "${project.ext.modName} ${project.version} for Minecraft ${project.ext.mcVersion} has been released. #${project.ext.modName.toLowerCase().replaceAll("[^a-zA-Z]", "")}")
+        
+        if (projectPage && newFileId) {
+            
+            tweetBody += " ${projectPage}/files/${newFileId}"
+        }
+        
+        sendTweet(tweetBody)
     }
 }

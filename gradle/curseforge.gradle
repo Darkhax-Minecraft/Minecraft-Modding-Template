@@ -165,25 +165,23 @@ if (project.hasProperty('curse_discord_webhook')) {
     }
 }
 
+def canTwitter = project.hasProperty('twitter_api_key') && project.hasProperty('twitter_api_key_secret') && project.hasProperty('twitter_access_token') && project.hasProperty('twitter_access_token_secret')
+
+if (canTwitter) {
+
+    postTweet.dependsOn tasks.getByName('curseforge')
+}
+    
+else {
+    
+    project.logger.warn("Skipping Twitter plugin. APIKey: ${project.hasProperty('twitter_api_key')} ${project.hasProperty('twitter_api_key_secret')} AccessToken: ${project.hasProperty('twitter_access_token')} ${project.hasProperty('twitter_access_token_secret')}")
+}
+    
 task postTweet (type: net.darkhax.tweedle.TaskPostTweet){
-    
-    def canLoad = project.hasProperty('twitter_api_key') && project.hasProperty('twitter_api_key_secret') && project.hasProperty('twitter_access_token') && project.hasProperty('twitter_access_token_secret')
-    
-    if (canLoad) {
-    
-        addClient(project.findProperty('twitter_api_key'), project.findProperty('twitter_api_key_secret'), project.findProperty('twitter_access_token'), project.findProperty('twitter_access_token_secret'))        
-        dependsOn tasks.getByName('curseforge')
-    }
-    
-    else {
-    
-        project.logger.warn("Skipping Twitter plugin. APIKey: ${project.hasProperty('twitter_api_key')} ${project.hasProperty('twitter_api_key_secret')} AccessToken: ${project.hasProperty('twitter_access_token')} ${project.hasProperty('twitter_access_token_secret')}")
-        
-    }
     
     onlyIf {
     
-        canLoad
+        canTwitter
     }
     
     doLast {

@@ -191,7 +191,7 @@ task postTweet (type: net.darkhax.tweedle.TaskPostTweet){
 
 if (canTwitter) {
 
-    postTweet.dependsOn tasks.getByName('curseforge')
+    tasks.getByName('curseforge').finalizedBy postTweet
 }
     
 else {

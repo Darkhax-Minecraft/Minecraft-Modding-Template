@@ -177,7 +177,7 @@ task postTweet (type: net.darkhax.tweedle.TaskPostTweet){
     
     else {
     
-        project.logger.lifecycle("Skipping Twitter plugin. Auth tokens not provided.")
+        project.logger.warn("Skipping Twitter plugin. Auth tokens not provided.")
     }
     
     onlyIf {

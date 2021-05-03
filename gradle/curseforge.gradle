@@ -80,7 +80,7 @@ curseforge {
             if (project.ext.patreon && project.ext.patreon.pledgeLog) {
                 
                 def patreonText = project.ext.patreon.campaignUrlTracked ? "[Patreon](${project.ext.patreon.campaignUrlTracked})" : 'Patreon'
-                changelog += "\n\nThis mod was made possible by ${patreonText} support from players like you. Thank you!\n${project.ext.patreon.pledgeLog}"
+                changelog += "\n\nThis mod was made possible by ${patreonText} support from players like you. Thank you!\n\n${project.ext.patreon.pledgeLog}"
             }
             
             changelogType = 'markdown'

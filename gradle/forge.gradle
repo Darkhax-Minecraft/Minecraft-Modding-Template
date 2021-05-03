@@ -142,7 +142,9 @@ processResources {
         include 'META-INF/mods.toml'
         include 'pack.mcmeta'
         
-        if (project.ext.patreon && project.ext.patreon.pledges && !project.ext.patreon.pledges.isEmpty()) {
+        def buildProps = project.properties.clone()
+        
+        if (project.ext.has('patreon') && project.ext.patreon.pledges && !project.ext.patreon.pledges.isEmpty()) {
         
             def supporters = new ArrayList<String>()
 
@@ -156,10 +158,10 @@ processResources {
                 }
             }
             
-            expand 'modCredits': "${project.ext.modCredits} and the supporters on Patreon: ${supporters.join(', ')}" 
+            buildProps.put('modCredits', "${project.ext.modCredits} and the supporters on Patreon: ${supporters.join(', ')}") 
         }
         
-        expand project.properties
+        expand buildProps
     }
 }
 

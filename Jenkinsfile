@@ -13,7 +13,7 @@ pipeline {
                 withCredentials([
                     file(credentialsId: 'build_secrets', variable: 'ORG_GRADLE_PROJECT_secretFile'),
                     file(credentialsId: 'java_keystore', variable: 'ORG_GRADLE_PROJECT_keyStore'),
-                    file(credentialsId: 'pgp_key', variable: 'ORG_GRADLE_PROJECT_pgpKeyRing')
+                    file(credentialsId: 'gpg_key', variable: 'ORG_GRADLE_PROJECT_pgpKeyRing')
                 ]) {
             
                     echo 'Building project.'

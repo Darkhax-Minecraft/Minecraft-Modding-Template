@@ -141,6 +141,24 @@ processResources {
     
         include 'META-INF/mods.toml'
         include 'pack.mcmeta'
+        
+        if (project.ext.patreon && project.ext.patreon.pledges && !project.ext.patreon.pledges.isEmpty()) {
+        
+            def supporters = new ArrayList<String>()
+
+            for (entry in project.ext.patreon.pledges) {
+
+                def pledge = entry.getValue();
+
+                if (pledge.isValid()) {
+
+                    supporters.add(pledge.getDisplayName())
+                }
+            }
+            
+            expand 'modCredits': "${project.ext.modCredits} and the supporters on Patreon: ${supporters.join(', ')}" 
+        }
+        
         expand project.properties
     }
 }

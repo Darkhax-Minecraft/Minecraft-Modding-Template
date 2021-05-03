@@ -11,9 +11,9 @@ pipeline {
             steps {
             
                 withCredentials([
-                    file(credentialsId: 'debug_mod_secrets', variable: 'ORG_GRADLE_PROJECT_secretFile'),
+                    file(credentialsId: 'build_secrets', variable: 'ORG_GRADLE_PROJECT_secretFile'),
                     file(credentialsId: 'java_keystore', variable: 'ORG_GRADLE_PROJECT_keyStore'),
-                    file(credentialsId: 'debug_pgp_key', variable: 'ORG_GRADLE_PROJECT_pgpKeyRing')
+                    file(credentialsId: 'pgp_key', variable: 'ORG_GRADLE_PROJECT_pgpKeyRing')
                 ]) {
             
                     echo 'Building project.'

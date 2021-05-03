@@ -3,15 +3,18 @@
 */
 import groovy.json.JsonSlurper
 
-if (project.hasProperty('patreonCampaignId') && findProperty('patreonAuthToken')) {
+if (project.hasProperty('patreon_campaign_id') && findProperty('patreon_auth_token')) {
 
-    def defaultCampaign = project.findProperty('patreonCampaignId')
-    def defaultAuth = project.findProperty('patreonAuthToken')
+    def defaultCampaign = project.findProperty('patreon_campaign_id')
+    def defaultAuth = project.findProperty('patreon_auth_token')
     
-    project.ext.patreon.pledgeLog = getPledgeLog(defaultCampaign, defaultAuth)
-    project.ext.patreon.pledges = getPledges(defaultCampaign, defaultAuth)
+    project.ext.patreon = [
+        campaign: defaultCampaignId,
+        pledgeLog: getPledgeLog(defaultCampaign, defaultAuth),
+        pledges: getPledges(defaultCampaign, defaultAuth)
+    ]
     
-    project.logger.lifecycle("Loading pledes for campaign ${patreonCampaignId}.")
+    project.logger.lifecycle("Loading plede data for default campaign ${defaultCampaign}.")
 }
 
 /*

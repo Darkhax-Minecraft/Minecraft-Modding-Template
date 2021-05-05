@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
 import net.minecraftforge.forgespi.language.IModInfo;
 
 @Mod(ExampleMod.MOD_ID)
@@ -15,9 +16,11 @@ public class ExampleMod {
     
     public ExampleMod() {
         
-    	for (IModInfo modInfo : ModList.get().getModFileById(MOD_ID).getMods()) {
+    	final ModFileInfo modEntry = ModList.get().getModFileById(MOD_ID);
+    	
+    	for (IModInfo modInfo : modEntry.getMods()) {
     		
-    		LOGGER.info("Loaded {} v{}", modInfo.getModId(), modInfo.getVersion().toString());
+    		LOGGER.info("Loaded {} v{} from '{}'", modInfo.getModId(), modInfo.getVersion(), modEntry.getFile().getFilePath());
     	}
     }
 }

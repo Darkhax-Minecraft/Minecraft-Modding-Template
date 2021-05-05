@@ -44,6 +44,7 @@ public class ExampleMod {
             
             try (JarFile jar = new JarFile(file)) {
                 
+                boolean hasFailed = false;
                 final Enumeration<JarEntry> entries = jar.entries();
                 
                 while (entries.hasMoreElements()) {
@@ -61,9 +62,18 @@ public class ExampleMod {
                             // when read which are caught.
                         }
                     }
+                    
+                    // This exception is raised when the contents of a file do not match the
+                    // expected signature. We don't hard fail right away to allow all
+                    // violations to be logged.
+                    catch (SecurityException e) {
+                        
+                        hasFailed = true;
+                        LOGGER.catching(e);
+                    }
                 }
                 
-                return true;
+                return !hasFailed;
             }
             
             catch (final IOException e) {

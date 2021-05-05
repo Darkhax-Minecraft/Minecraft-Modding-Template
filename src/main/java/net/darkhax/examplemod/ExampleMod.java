@@ -61,15 +61,6 @@ public class ExampleMod {
                             // when read which are caught.
                         }
                     }
-                    
-                    final CodeSigner[] signers = entry.getCodeSigners();
-                    
-                    // Ensure that every file in the JAR was properly signed.
-                    if (signers == null || signers.length < 1) {
-                        
-                        LOGGER.warn("unsigned? {}", entry.getName());
-                        return false;
-                    }
                 }
                 
                 return true;

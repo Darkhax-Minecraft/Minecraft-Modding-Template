@@ -166,17 +166,24 @@ processResources {
 }
 
 jar {
+
     manifest {
     
-        // Adds modloader details to the manifest. This is non-functional meta.
-        attributes(['ModLoader': "forge-${forgeVersion}"])
+        def newProps = [:]
         
-        // Adds the mixin config to the manifest when needed. This is used to
-        // load mixins.
+        // Adds build time info to the manifest. This has no intended runtime
+        // functionality.
+        newProps['ModLoader'] = "forge-${forgeVersion}"
+        newProps['Built-On-Minecraft'] = project.ext.mcVersion
+        
+        // Adds the mixin config to the manifest when mixins are used. This is
+        // required for your mixins to run.
         if (project.hasProperty('mixin_id')) {
         
-            attributes(['MixinConfigs': "${mixin_id}.mixins.json"])
+            newProps['MixinConfigs'] = "${mixin_id}.mixins.json"
         }
+        
+        attributes(newProps)
     }
 }
 

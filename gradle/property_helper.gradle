@@ -54,6 +54,11 @@ def getExecOutput(commands) {
     return out.toString().trim();
 }
 
+def getDefaultBoolean(name, defaultEnabled = true) {
+
+    return project.hasProperty(name) ? project.findProperty(name).toBoolean() : defaultEnabled
+}
+
 ext {
 
     getDefaultString = this.&getString
@@ -62,4 +67,5 @@ ext {
     getRequiredProperty = this.&getRequiredProperty
     getExecOutput = this.&getExecOutput
     getOptionalString = this.&getOptionalString
+    getDefaultBoolean = this.&getDefaultBoolean
 }

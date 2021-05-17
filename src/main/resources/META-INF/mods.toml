@@ -2,6 +2,8 @@ modLoader="javafml"
 loaderVersion="[36,]"
 issueTrackerURL="https://github.com/Darkhax/Minecraft-Modding-Template/issues"
 license="LGPL v2.1"
+logoFile="mod_logo.png"
+logoBlur=false
 
 [[mods]]
 modId="examplemod"

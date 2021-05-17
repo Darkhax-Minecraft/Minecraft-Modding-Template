@@ -66,7 +66,7 @@ dependencies {
         // CraftTweaker is a scripting framework for Minecraft. Mods are 
         // encouraged to add support for their new recipe types, events, and 
         // other game mechanics.
-        deobfCompile('crafttweaker', 'com.blamejared.crafttweaker', 'CraftTweaker-1.16.5', '7.1.0.281')
+        deobfCompile('crafttweaker', 'com.blamejared.crafttweaker', 'CraftTweaker-1.16.5', '7.1.0.291')
         
         // GameStages is a framework for modpack progression frameworks. Mods
         // can use the API to check which flags a player has enabled. This mod
@@ -94,19 +94,37 @@ dependencies {
         
         // Controlling overhauls the keybind menu by adding a search bar and
         // other QoL features.
-        deobfRuntime('controlling', 'com.blamejared.controlling', 'Controlling', '7.0.0.15')
+        deobfRuntime('controlling', 'com.blamejared.controlling', 'Controlling', '7.0.0.16')
         
         // Tips adds data driven tips to loading screens in the game. New tips
         // can be added by adding entries to your mod's resource pack.
         deobfRuntime('tips', 'net.darkhax.tips', 'Tips-1.16.5', '4.0.8')
         
+        // AttributeFix changes the min/max bounds of entity attributes to move
+        // them in line with how mods and players expect them to work. For
+        // example armor can not go above 30 and damage can not go above 1024
+        // in vanilla.
+        deobfRuntime('attributefix', 'net.darkhax.attributefix', 'AttributeFix-1.16.5', '10.1.2')
+        
+        // Adds descriptions of enchantments to enchanted book tooltips.
+        deobfRuntime('enchdesc', 'net.darkhax.enchdesc', 'EnchantmentDescriptions-1.16.5', '7.0.8')
+        
+        // Adds additional tool stats to the item tooltip like harvest level.
+        deobfRuntime('toolstats', 'net.darkhax.toolstats', 'ToolStats-1.16.5', '6.0.1')
+        
         // Adds a block that can store mass quantities of certain items.
         deobfRuntime('storage-drawers', 'curse.maven', 'storage-drawers-3180569', '3180569')
+        
+        // Allows data and resource packs to be loaded from an instance wide
+        // config folder.
+        deobfRuntime('openloader', 'net.darkhax.openloader', 'OpenLoader-1.16.5', '9.0.3')
         
         // Replaces the config GUI with a shiny new one. Mods can enable a 
         // custom menu icon by defining additional properties in the mods.toml
         // file of their mod.
         deobfRuntime('catalogue', 'curse.maven', 'catalogue-459701', '3285353')
+        
+        deobfRuntime('mod-name-tooltip', 'curse.maven', 'mod-name-tooltip-238747', '3038982')
     }
 }
 

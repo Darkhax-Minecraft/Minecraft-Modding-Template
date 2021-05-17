@@ -38,6 +38,10 @@ def loggingANSI = getDefaultProperty('forge_log_ansi', true).asBoolean()
 def mappingChannel = getDefaultString('forge_mapping_channel', 'official')
 def mappingVersion = getDefaultString('forge_mapping_version', project.ext.mcVersion)
 
+// Mixin Options
+def remapRefmap = getDefaultBoolean('mixin_remap_refmap')
+def remapRefmapFile = getDefaultString('mixin_remap_refmap_file', "${projectDir}/build/createSrgToMcp/output.srg")
+
 archivesBaseName = "${mod_name}-${minecraft_version}"
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
@@ -65,6 +69,15 @@ minecraft {
             // Sets Forge's logging level on the client.
             property 'forge.logging.console.level', loggingLevel
 
+            // Tells mixin to remap refmap files to the values used in the
+            // development environment. This allows mods with mixins to be
+            // used as devtime dependencies.
+            if (remapRefmap) {
+            
+                property 'mixin.env.remapRefMap', 'true'
+                property 'mixin.env.refMapRemappingFile', remapRefmapFile
+            }
+            
             // Enables ANSI color codes in the logs.
             if (loggingANSI) {
             
@@ -97,6 +110,15 @@ minecraft {
             // Sets Forge's logging level on the server.
             property 'forge.logging.console.level', loggingLevel
 
+            // Tells mixin to remap refmap files to the values used in the
+            // development environment. This allows mods with mixins to be
+            // used as devtime dependencies.
+            if (remapRefmap) {
+            
+                property 'mixin.env.remapRefMap', 'true'
+                property 'mixin.env.refMapRemappingFile', remapRefmapFile
+            }
+            
             // Enables ANSI color codes in the logs.
             if (loggingANSI) {
             

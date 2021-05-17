@@ -24,6 +24,7 @@ apply from: 'gradle/patreon.gradle'
 apply from: 'gradle/common_manifest.gradle'
 apply from: 'gradle/common_artifacts.gradle'
 apply from: 'gradle/forge.gradle'
+apply from: 'gradle/dependencies.gradle'
 apply from: 'gradle/minify_jsons.gradle'
 
 // Load publishing modules

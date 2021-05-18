@@ -197,6 +197,7 @@ jar {
         // functionality.
         newProps['ModLoader'] = "forge-${forgeVersion}"
         newProps['Built-On-Minecraft'] = project.ext.mcVersion
+        newProps['Built-On-Mapping'] = "${mappingChannel}-${mappingVersion}"
         
         // Adds the mixin config to the manifest when mixins are used. This is
         // required for your mixins to run.

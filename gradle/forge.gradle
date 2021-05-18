@@ -263,3 +263,44 @@ task signJar(type: net.minecraftforge.gradle.common.task.SignJar, dependsOn: jar
         project.logger.warn('Jar signing is disabled for this build. One or more keyStore properties are not specified.')
     }
 }
+
+task setupDebugRunConfigs() {
+
+    description = 'Creates basic configs used to debug mods in game'
+    
+    dependsOn 'configServerProps'
+    dependsOn 'configEula'
+}
+
+task configServerProps(type: WriteProperties) {
+
+    description = 'Configures the server with default properties. Eg. Disables online mode.'
+
+    outputFile = file("${serverRunDir}/server.properties")
+    
+    property('online-mode', getDefaultString('server_online_mode', 'false'))
+    property('motd', getDefaultString('server_motd', "Testing server for ${project.modName}"))
+    property('server-ip', getDefaultString('server_ip', ''))
+    property('server-port', getDefaultString('server_port', '25565'))
+    property('snooper-enabled', getDefaultString('server_snooper_enabled', 'false'))
+    property('spawn-protection', getDefaultString('server_spawn_protection', '0'))
+    property('enable-command-block', getDefaultString('enable_command_block', 'true'))
+    
+    property('level-name', getDefaultString('level_name', project.modName))
+    property('level-seed', getDefaultString('level_seed', project.modName))
+    property('level-type', getDefaultString('level_type', 'default'))
+}
+
+task configEula(type: WriteProperties) {
+
+    description = 'Automatically creates and agrees to the Mojang account EULA.'
+
+    outputFile = file("${serverRunDir}/eula.txt")
+    
+    property 'eula', true
+    
+    doLast {
+    
+        project.logger.warn("You have agreed to Mojang's EULA! https://account.mojang.com/documents/minecraft_eula");
+    }
+}

@@ -53,7 +53,7 @@ minecraft {
     // Loads access transofrmers if the user has specified them.
     if (project.hasProperty('forge_at')) {
     
-        accessTransformer = file(project.findProperty('mod_at'))
+        accessTransformer = file(project.findProperty('forge_at'))
     }
     
     runs {

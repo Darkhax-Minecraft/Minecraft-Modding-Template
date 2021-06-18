@@ -1,18 +1,33 @@
-# Gradle
-.gradle/
-bin/
-build/
+# gradle
 
-#Eclipse
-*.classpath
-*.project
-*.prefs
+.gradle/
+build/
+out/
+classes/
+
+# eclipse
+
 *.launch
 
-# General
-run/
+# idea
 
-# Annotation Processing
-/.apt_generated_tests/
-/Users/
-.factorypath
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# vscode
+
+.settings/
+.vscode/
+bin/
+.classpath
+.project
+
+# macos
+
+*.DS_Store
+
+# fabric
+
+run/

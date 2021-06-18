@@ -28,18 +28,15 @@ if (canLoad) {
             mavenJava(MavenPublication) {
             
                 artifactId project.archivesBaseName
-
-                // Base mod archive.
-                artifact jar
                 
-                // Adds the sources as an artifact.
-                artifact project.sourcesJar {
-                    classifier 'sources'
+                artifact(remapJar) {
+                
+                    builtBy remapJar
                 }
-
-                // Adds the javadocs as an artifact.
-                artifact project.javadocJar {
-                    classifier 'javadoc'
+                
+                artifact(sourcesJar) {
+                    builtBy remapSourcesJar
+                    classifier 'sources'
                 }
             }
         }

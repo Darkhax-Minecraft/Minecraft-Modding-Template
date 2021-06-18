@@ -1,34 +1,4 @@
-plugins {
-	id 'fabric-loom' version '0.7-SNAPSHOT'
-}
-
-apply from: 'gradle/property_helper.gradle'
-apply from: 'gradle/property_loader.gradle'
-
-// Loads mod related properties
-ext.modName = getRequiredString('mod_name')
-ext.modAuthor = getRequiredString('mod_author')
-ext.modId = getRequiredString('mod_id')
-ext.modCredits = getDefaultString('mod_credits', ext.modAuthor)
-ext.modDescription = getOptionalString('mod_description')
-ext.modChangelog = getOptionalString('mod_changelog')
-ext.modHomepage = getOptionalString('mod_homepage')
-ext.modSource = getOptionalString('mod_source')
-ext.modIssues = getOptionalString('mod_issues')
-
-// Load Minecraft specific properties
-ext.mcVersion = getRequiredString('minecraft_version')
-
-// Load build-time modules
-apply from: 'gradle/build_number.gradle'
-apply from: 'gradle/git_changelog.gradle'
-apply from: 'gradle/patreon.gradle'
-apply from: 'gradle/minify_jsons.gradle'
-
-// Load publishing modules
-apply from: 'gradle/maven.gradle'
-apply from: 'gradle/signing.gradle'
-apply from: 'gradle/curseforge.gradle'
+project.logger.lifecycle("Loading Loom project module. Using Mixins: ${project.hasProperty('mixin_id')}")
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8

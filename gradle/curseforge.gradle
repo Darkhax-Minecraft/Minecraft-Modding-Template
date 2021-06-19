@@ -93,7 +93,7 @@ curseforge {
                 }
             }
             
-            addGameVersion('fabric')
+            addGameVersion('Fabric')
             
             mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")) {
             

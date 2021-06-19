@@ -92,8 +92,10 @@ curseforge {
                     addGameVersion version
                 }
             }
-
-            mainArtifact(jar) {
+            
+            addGameVersion('fabric')
+            
+            mainArtifact(file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")) {
             
                 if (project.hasProperty('curse_requirements') || project.hasProperty('curse_optionals')) {
                 
@@ -117,6 +119,16 @@ curseforge {
                     }
                 }
             }
+            
+            afterEvaluate {
+            
+                uploadTask.dependsOn(remapJar)
+            }
+        }
+        
+        options {
+        
+            forgeGradleIntegration = false;
         }
     }
     
@@ -141,7 +153,7 @@ if (project.hasProperty('curse_discord_webhook')) {
             // Craft a message to send to Discord using the webhook.
             def message = new Message()      
             message.setUsername(project.ext.modName)
-            message.setContent("${project.ext.modName} ${project.version} for Minecraft ${project.ext.mcVersion} has been published!")
+            message.setContent("${project.ext.modName} (Fabric) ${project.version} for Minecraft ${project.ext.mcVersion} has been published!")
             
             def embed = new Embed();
             
@@ -190,7 +202,7 @@ task postTweet (type: net.darkhax.tweedle.TaskPostTweet){
     
         // Reads the file ID given to us by CurseForge
         def newFileId = tasks.getByName("curseforge${curse_project}").property('mainArtifact').fileID
-        def tweetBody = "${project.ext.modName} ${project.version} for Minecraft ${project.ext.mcVersion} has been released. #${project.ext.modName.toLowerCase().replaceAll("[^a-zA-Z]", "")}"
+        def tweetBody = "${project.ext.modName} (Fabric) ${project.version} for Minecraft ${project.ext.mcVersion} has been released. #${project.ext.modName.toLowerCase().replaceAll("[^a-zA-Z]", "")}"
         
         if (projectPage && newFileId) {
             

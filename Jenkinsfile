@@ -22,7 +22,7 @@ pipeline {
             
                     echo 'Building project.'
                     sh 'chmod +x gradlew'
-                    sh './gradlew clean build publish curseforge updateVersionTracker postTweet --stacktrace --warn'
+                    sh './gradlew clean build publish curseforge postTweet --stacktrace --warn'
                 }
             }
         }

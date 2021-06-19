@@ -1,5 +1,3 @@
-project.logger.lifecycle("Loading Loom project module. Using Mixins: ${project.hasProperty('mixin_id')}")
-
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 archivesBaseName = "${mod_name}-Fabric-${minecraft_version}"
@@ -74,7 +72,6 @@ jar {
             'Built-On-Fabric': project.findProperty('loader_version'),
             'Built-On-Mapping': "yarn-${project.findProperty('yarn_mappings')}",
             'Built-On-Gradle': gradle.gradleVersion,
-            'Built-On-Loom': buildscript.configurations.classpath.dependencies.find({ it.name.contains('fabric-loom') }).version,
             'ModLoader': "fabric-${project.findProperty('loader_version')}",
         ])
     }

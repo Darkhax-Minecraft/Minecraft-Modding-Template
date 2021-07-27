@@ -46,85 +46,14 @@ dependencies {
     // recommended to add support for these mods if it makes sense for the 
     // content of your mod.
     if (getDefaultBoolean('dependencies_compile_enabled')) {
-        
-        // Bookshelf is a general purpose library mod. It provides many helpers
-        // and frameworks for other mods to work with. There are also in game
-        // debug commands under /bookshelf.
-        deobfCompile('bookshelf', 'net.darkhax.bookshelf', 'Bookshelf-1.16.5', '10.0.8')
-        
-        // JEI is an information interface for game data such as recipes. Mods
-        // are encouraged to add data about their own content to this mod.
-        // The most common information to include is item descriptions and 
-        // crafting info for new recipe categories.
-        deobfCompile('jei', 'mezz.jei', 'jei-1.16.5', '7.6.4.90')
-        
-        // Curios adds new inventory slots for items like rings and charms.
-        // Mods are encouraged to use Curios where possible to reduce inventory
-        // clutter and provide a unified experience for players.
-        deobfCompile('curios', 'top.theillusivec4.curios', 'curios-forge', '1.16.5-4.0.5.1')
-        
-        // CraftTweaker is a scripting framework for Minecraft. Mods are 
-        // encouraged to add support for their new recipe types, events, and 
-        // other game mechanics.
-        deobfCompile('crafttweaker', 'com.blamejared.crafttweaker', 'CraftTweaker-1.16.5', '7.1.0.291')
-        
-        // GameStages is a framework for modpack progression frameworks. Mods
-        // can use the API to check which flags a player has enabled. This mod
-        // has a hard requirement on Bookshelf.        
-        deobfCompile('gamestages', 'net.darkhax.gamestages', 'GameStages-1.16.5', '7.1.4')
-        
-        // Patchouli is a framework for creating in-game documentation through
-        // books and other types of documents.
-        deobfCompile('patchouli', 'vazkii.patchouli', 'Patchouli', '1.16.4-51')
+            
     }
 
     // This section includes mods that are commonly used by players and meet a
     // minimum level of quality and performance. These mods are only available
     // at runtime by default meaning you may not directly access their code.
     if (getDefaultBoolean('dependencies_runtime_enabled')) {
-    
-        // Runelic adds a new font to the game called Runelic. There are also 
-        // commands under /runelic which help apply the mod.
-        deobfRuntime('runelic', 'net.darkhax.runelic', 'Runelic-1.16.5', '7.0.1')
         
-        // Dark Utilities adds a bunch of miscellaneous content to the game 
-        // such as Vector Plates which push mobs around. This mod has a hard
-        // requirement on Bookshelf and Runelic.
-        deobfRuntime('darkutils', 'net.darkhax.darkutilities', 'DarkUtilities-1.16.5', '8.0.10')
-        
-        // Controlling overhauls the keybind menu by adding a search bar and
-        // other QoL features.
-        deobfRuntime('controlling', 'com.blamejared.controlling', 'Controlling', '7.0.0.16')
-        
-        // Tips adds data driven tips to loading screens in the game. New tips
-        // can be added by adding entries to your mod's resource pack.
-        deobfRuntime('tips', 'net.darkhax.tips', 'Tips-1.16.5', '4.0.8')
-        
-        // AttributeFix changes the min/max bounds of entity attributes to move
-        // them in line with how mods and players expect them to work. For
-        // example armor can not go above 30 and damage can not go above 1024
-        // in vanilla.
-        deobfRuntime('attributefix', 'net.darkhax.attributefix', 'AttributeFix-1.16.5', '10.1.2')
-        
-        // Adds descriptions of enchantments to enchanted book tooltips.
-        deobfRuntime('enchdesc', 'net.darkhax.enchdesc', 'EnchantmentDescriptions-1.16.5', '7.0.8')
-        
-        // Adds additional tool stats to the item tooltip like harvest level.
-        deobfRuntime('toolstats', 'net.darkhax.toolstats', 'ToolStats-1.16.5', '6.0.1')
-        
-        // Adds a block that can store mass quantities of certain items.
-        deobfRuntime('storage-drawers', 'curse.maven', 'storage-drawers-3180569', '3180569')
-        
-        // Allows data and resource packs to be loaded from an instance wide
-        // config folder.
-        deobfRuntime('openloader', 'net.darkhax.openloader', 'OpenLoader-1.16.5', '9.0.3')
-        
-        // Replaces the config GUI with a shiny new one. Mods can enable a 
-        // custom menu icon by defining additional properties in the mods.toml
-        // file of their mod.
-        deobfRuntime('catalogue', 'curse.maven', 'catalogue-459701', '3285353')
-        
-        deobfRuntime('mod-name-tooltip', 'curse.maven', 'mod-name-tooltip-238747', '3038982')
     }
 }
 

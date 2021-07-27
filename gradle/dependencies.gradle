@@ -137,7 +137,7 @@ dependencies {
  */
 def deobfCompile(modid, defaultGroup, defaultName, defaultVersion) {
 
-    deobfDep(modid, 'compile', defaultGroup, defaultName, defaultVersion)
+    deobfDep(modid, 'implementation', defaultGroup, defaultName, defaultVersion)
 }
 
 /**

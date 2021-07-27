@@ -12,7 +12,7 @@ import org.apache.logging.log4j.Logger;
 
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
+import net.minecraftforge.forgespi.language.IModFileInfo;
 import net.minecraftforge.forgespi.language.IModInfo;
 
 @Mod(ExampleMod.MOD_ID)
@@ -23,7 +23,7 @@ public class ExampleMod {
     
     public ExampleMod() {
         
-        final ModFileInfo modEntry = ModList.get().getModFileById(MOD_ID);
+        final IModFileInfo modEntry = ModList.get().getModFileById(MOD_ID);
         
         for (final IModInfo modInfo : modEntry.getMods()) {
             

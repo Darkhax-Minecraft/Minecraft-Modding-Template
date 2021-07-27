@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[36,]"
+loaderVersion="[37,]"
 issueTrackerURL="https://github.com/Darkhax/Minecraft-Modding-Template/issues"
 license="LGPL v2.1"
 logoFile="mod_logo.png"
@@ -7,7 +7,7 @@ logoBlur=false
 
 [[mods]]
 modId="examplemod"
-updateJSONURL="https://updates.blamejared.com/get?n=examplemod&gv=1.16.5"
+updateJSONURL="https://updates.blamejared.com/get?n=examplemod&gv=1.17.1"
 version="${version}"
 displayName="${modName}"
 displayURL="${modHomepage}"
@@ -21,13 +21,13 @@ itemIcon="minecraft:golden_apple"
 [[dependencies.examplemod]]
     modId="forge"
     mandatory=true
-    versionRange="[36,]"
+    versionRange="[37,]"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.examplemod]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.5]"
+    versionRange="[1.17.1]"
     ordering="NONE"
     side="BOTH"

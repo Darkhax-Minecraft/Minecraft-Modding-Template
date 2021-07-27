@@ -21,7 +21,7 @@ buildscript {
     
     dependencies {
     
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '4.+', changing: true
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
@@ -240,7 +240,7 @@ task runServer() {
 // Forge's Jar Signer
 def canSignJar = project.hasProperty('keyStore') && project.hasProperty('keyStorePass') && project.hasProperty('keyStoreKeyPass') && project.hasProperty('keyStoreAlias')
 
-task signJar(type: net.minecraftforge.gradle.common.task.SignJar, dependsOn: jar) {
+task signJar(type: net.minecraftforge.gradle.common.tasks.SignJar, dependsOn: jar) {
     
     onlyIf {
     

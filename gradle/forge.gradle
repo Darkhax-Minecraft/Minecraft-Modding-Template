@@ -156,33 +156,29 @@ dependencies {
     }
 }
 
-
 processResources {
 
-    from(sourceSets.main.resources.srcDirs) {
+    def buildProps = project.properties.clone()
     
-        include 'META-INF/mods.toml'
-        include 'pack.mcmeta'
-        
-        def buildProps = project.properties.clone()
-        
-        if (project.ext.has('patreon') && project.ext.patreon.pledges && !project.ext.patreon.pledges.isEmpty()) {
-        
-            def supporters = new ArrayList<String>()
+    if (project.ext.has('patreon') && project.ext.patreon.pledges && !project.ext.patreon.pledges.isEmpty()) {
+    
+        def supporters = new ArrayList<String>()
 
-            for (entry in project.ext.patreon.pledges) {
+        for (entry in project.ext.patreon.pledges) {
 
-                def pledge = entry.getValue();
+            def pledge = entry.getValue();
 
-                if (pledge.isValid()) {
+            if (pledge.isValid()) {
 
-                    supporters.add(pledge.getDisplayName())
-                }
+                supporters.add(pledge.getDisplayName())
             }
-            
-            buildProps.put('modCredits', "${project.ext.modCredits} and the supporters on Patreon: ${supporters.join(', ')}") 
         }
         
+        buildProps.put('modCredits', "${project.ext.modCredits} and the supporters on Patreon: ${supporters.join(', ')}") 
+    }
+    
+    filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
+    
         expand buildProps
     }
 }

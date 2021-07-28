@@ -54,6 +54,14 @@ dependencies {
     // at runtime by default meaning you may not directly access their code.
     if (getDefaultBoolean('dependencies_runtime_enabled')) {
         
+        // Replaces the config GUI with a shiny new one. Mods can enable a 
+        // custom menu icon by defining additional properties in the mods.toml
+        // file of their mod.
+        deobfRuntime('catalogue', 'curse.maven', 'catalogue-459701', '3399552')
+        
+        // Controlling overhauls the keybind menu by adding a search bar and
+        // other QoL features.
+        deobfRuntime('controlling', 'com.blamejared.controlling', 'Controlling', '8.0.0')
     }
 }
 
@@ -116,6 +124,12 @@ def deobfDep(modid, defaultType, defaultGroup, defaultName, defaultVersion) {
     
         project.logger.warn("Dependency ${modid} has been disabled for this build.")
     }
+}
+
+project.repositories.each {
+
+    project.logger.debug("Disabled Gradle metadata for repo '${it.name}' with url '${it.url}'.")
+    it.metadataSources.ignoreGradleMetadataRedirection()
 }
 
 ext {

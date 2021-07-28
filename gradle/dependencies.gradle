@@ -126,10 +126,19 @@ def deobfDep(modid, defaultType, defaultGroup, defaultName, defaultVersion) {
     }
 }
 
+// Gradle introduced a new metadata format that will override data from other
+// formats like Maven. When publishing Forge mods this metadata will include 
+// dependency entries for mapped versions of Forge and other mods used in the
+// userdev environment. Gradle will try and fail to resolve these dependencies.
+// The simplest fix is for those publishing artefacts to disable the publishing
+// of this metadata or to strip the mapped dependencies however we can not rely
+// on them to do that. This code will tell Gradle to ignore that metadata.
 project.repositories.each {
 
-    project.logger.debug("Disabled Gradle metadata for repo '${it.name}' with url '${it.url}'.")
-    it.metadataSources.ignoreGradleMetadataRedirection()
+    if (it.hasProperty('metadataSources')) {
+    
+        it.metadataSources.ignoreGradleMetadataRedirection()
+    }
 }
 
 ext {

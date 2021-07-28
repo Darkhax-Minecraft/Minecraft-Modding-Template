@@ -42,7 +42,7 @@ def mappingVersion = getDefaultString('forge_mapping_version', project.ext.mcVer
 def remapRefmap = getDefaultBoolean('mixin_remap_refmap')
 def remapRefmapFile = getDefaultString('mixin_remap_refmap_file', "${projectDir}/build/createSrgToMcp/output.srg")
 
-archivesBaseName = "${mod_name}-${minecraft_version}"
+archivesBaseName = "${mod_name}-Forge-${minecraft_version}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(16)
 

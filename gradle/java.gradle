@@ -1,3 +1,6 @@
+// Sets the name of files to ModName-Forge-MCVersion.
+archivesBaseName = "${mod_name}-Forge-${minecraft_version}"
+
 java {
 
     // Generate a sources JAR.

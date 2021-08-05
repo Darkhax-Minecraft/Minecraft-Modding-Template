@@ -97,7 +97,7 @@ curseforge {
             
                 addGameVersion project.ext.mcVersion
                 addGameVersion 'Forge'
-                addGameVersion 'Java 16'
+                addGameVersion 'Java 8'
             }
 
             mainArtifact(jar) {

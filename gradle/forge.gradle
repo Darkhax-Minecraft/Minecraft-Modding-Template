@@ -42,8 +42,8 @@ def mappingVersion = getDefaultString('forge_mapping_version', project.ext.mcVer
 def remapRefmap = getDefaultBoolean('mixin_remap_refmap')
 def remapRefmapFile = getDefaultString('mixin_remap_refmap_file', "${projectDir}/build/createSrgToMcp/output.srg")
 
-archivesBaseName = "${mod_name}-${minecraft_version}"
-sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
+// Makes sure jar files are reobfuscated by Forge when built.
+jar.finalizedBy('reobfJar')
 
 minecraft {
 
@@ -160,6 +160,7 @@ processResources {
 
     def buildProps = project.properties.clone()
     
+    // When patreon data is available add credits and supporter info.
     if (project.ext.has('patreon') && project.ext.patreon.pledges && !project.ext.patreon.pledges.isEmpty()) {
     
         def supporters = new ArrayList<String>()
@@ -176,6 +177,10 @@ processResources {
         
         buildProps.put('modCredits', "${project.ext.modCredits} and the supporters on Patreon: ${supporters.join(', ')}") 
     }
+    
+    // Replaces FML's magic file.jarVersion string with the correct version at 
+    // build time.
+    buildProps.put('file', [jarVersion: project.version])
     
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
     

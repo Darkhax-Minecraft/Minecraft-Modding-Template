@@ -8,7 +8,7 @@ logoBlur=false
 [[mods]]
 modId="examplemod"
 updateJSONURL="https://updates.blamejared.com/get?n=examplemod&gv=1.17.1"
-version="${version}"
+version="${file.jarVersion}"
 displayName="${modName}"
 displayURL="${modHomepage}"
 credits="${modCredits}"

@@ -179,6 +179,7 @@ processResources {
 
     def buildProps = project.properties.clone()
     
+    // When patreon data is available add credits and supporter info.
     if (project.ext.has('patreon') && project.ext.patreon.pledges && !project.ext.patreon.pledges.isEmpty()) {
     
         def supporters = new ArrayList<String>()
@@ -195,7 +196,11 @@ processResources {
         
         buildProps.put('modCredits', "${project.ext.modCredits} and the supporters on Patreon: ${supporters.join(', ')}") 
     }
-    
+
+    // Replaces FML's magic file.jarVersion string with the correct version at 
+    // build time.
+    buildProps.put('file', [jarVersion: project.version])
+        
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
     
         expand buildProps

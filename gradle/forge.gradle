@@ -16,12 +16,19 @@ buildscript {
             url 'https://repo.spongepowered.org/repository/maven-public'
         }
         
+        maven {
+            
+            name 'Official Parchment Maven'
+            url = 'https://maven.parchmentmc.org'
+        }
+        
         mavenCentral()
     }
     
     dependencies {
     
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'org.parchmentmc', name: 'librarian', version: '1+'
         classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
@@ -41,6 +48,18 @@ def mappingVersion = getDefaultString('forge_mapping_version', project.ext.mcVer
 // Mixin Options
 def remapRefmap = getDefaultBoolean('mixin_remap_refmap')
 def remapRefmapFile = getDefaultString('mixin_remap_refmap_file', "${projectDir}/build/createSrgToMcp/output.srg")
+
+// Parchment & Librarian Options
+if (getDefaultBoolean('parchment_enabled')) {
+
+    def parchmentVersion = getDefaultString('parchment_mapping_version', '2021.09.05-1.17.1')
+    
+    project.logger.lifecycle("Running with Parchment enabled. forge_mapping_channel is now 'parchment'. forge_mapping_version is now '${parchmentVersion}'")
+
+    apply plugin: org.parchmentmc.librarian.forgegradle.LibrarianForgeGradlePlugin
+    mappingChannel = 'parchment'
+    mappingVersion = parchmentVersion
+}
 
 // Makes sure jar files are reobfuscated by Forge when built.
 jar.finalizedBy('reobfJar')

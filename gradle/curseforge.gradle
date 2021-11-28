@@ -163,7 +163,7 @@ if (project.hasProperty('curse_discord_webhook')) {
                 
                 // Only include the first 240 chars of the changelog to
                 // avoid their size limits.
-                embed.addField('Changelog', project.ext.modChangelog.take(500), false)
+                embed.addField('Changelog', project.ext.getChangelog(1000), false)
             }
             
             embed.setColor(0xFF8000)

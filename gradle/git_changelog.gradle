@@ -6,6 +6,8 @@
 */
 apply from: 'gradle/property_helper.gradle'
 
+project.ext.modChangelog = 'No changelog available.'
+
 try {
 
     def gitRepo = project.ext.modSource ?: project.findProperty('gitRemote', getExecOutput(['git', 'remote', 'get-url', 'origin']))
@@ -15,14 +17,14 @@ try {
     // If a full range is available use that range.
     if (gitCommit && gitPrevCommit) {
 
-        project.ext.modChangelog += getExecOutput(['git', 'log', "--pretty=tformat:- %s [(%h)](${gitRepo}/commit/%h)", '' + gitPrevCommit + '..' + gitCommit])
+        project.ext.modChangelog = getExecOutput(['git', 'log', "--pretty=tformat:- %s [(%h)](${gitRepo}/commit/%h)", '' + gitPrevCommit + '..' + gitCommit])
         project.logger.lifecycle("Appened Git changelog with commit ${gitPrevCommit} to ${gitCommit}.")
     }
 
     // If only one commit is available, use the last commit.
     else if (gitCommit) {
 
-        project.ext.modChangelog += getExecOutput(['git', 'log', '' + "--pretty=tformat:- %s [(%h)](${gitRepo}/commit/%h)", '-1', '' + gitCommit])
+        project.ext.modChangelog = getExecOutput(['git', 'log', '' + "--pretty=tformat:- %s [(%h)](${gitRepo}/commit/%h)", '-1', '' + gitCommit])
         project.logger.lifecycle("Appened Git changelog with commit ${gitCommit}.")
     }
 }
@@ -30,4 +32,30 @@ try {
 catch (Exception e) {
 
     project.logger.warn('Changelog generation has failed!', e)
+}
+
+def getChangelog(maxLength) {
+
+    def split = project.ext.modChangelog.split('\n')
+    def output = ''
+
+    for (line in split) {
+
+        def newOutput = output + '\n' + line;
+        
+        if (newOutput.length() > maxLength) {
+        
+            return output
+        }
+        
+        output = newOutput
+    }
+    
+    return output;
+}
+
+// Allows other scripts to use these methods.
+ext {
+
+    getChangelog = this.&getChangelog
 }

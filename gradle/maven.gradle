@@ -1,4 +1,4 @@
-apply from: 'gradle/property_helper.gradle'
+apply from: '../gradle/property_helper.gradle'
 apply plugin: 'maven-publish' 
 
 def canLoad = true

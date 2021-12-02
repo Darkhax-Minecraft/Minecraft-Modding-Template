@@ -25,6 +25,11 @@ if (project.hasProperty('patreon_campaign_id') && findProperty('patreon_auth_tok
     project.logger.lifecycle("Loading plede data for default campaign ${defaultCampaign}.")
 }
 
+else {
+
+    project.logger.warn("Patreon data can not be loaded! has_id:${project.hasProperty('patreon_campaign_id')} has_campaign:${findProperty('patreon_auth_token')}")
+}
+
 /*
  Gets a list of pledges for a specified campaign using a specified auth token.
 */

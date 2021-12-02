@@ -28,10 +28,18 @@ processResources {
         
         fileTree(dir: outputs.files.asPath, include: '**/*.json').each {
         
-            def oldLength = it.length()
-            it.text = JsonOutput.toJson(new JsonSlurper().parse(it))
-            jsonBytesSaved += oldLength - it.length()
-            jsonMinified++
+            try {
+                def oldLength = it.length()
+                it.text = JsonOutput.toJson(new JsonSlurper().parse(it))
+                jsonBytesSaved += oldLength - it.length()
+                jsonMinified++
+            }
+            
+            catch (Exception e) {
+            
+                project.logger.error("Failed to minify file '${it.path}'.")
+                throw e
+            }
         }
         
         project.logger.lifecycle("Minified ${jsonMinified} files. Saved ${jsonBytesSaved} bytes before compression. Took ${System.currentTimeMillis() - jsonMinifyStart}ms.")

@@ -69,3 +69,47 @@ processResources {
 }
 
 jar.finalizedBy('reobfJar')
+
+// -- MAVEN PUBLISHING --
+project.publishing {
+    
+    publications {
+
+        mavenJava(MavenPublication) {
+        
+            artifactId project.archivesBaseName
+
+            // Base mod archive.
+            artifact jar
+            
+            // Adds the sources as an artifact.
+            artifact project.sourcesJar {
+                classifier 'sources'
+            }
+
+            // Adds the javadocs as an artifact.
+            artifact project.javadocJar {
+                classifier 'javadoc'
+            }
+        }
+    }
+
+    repositories {
+    
+        maven {
+        
+            // Sets maven credentials if they are provided. This is generally
+            // only used for external/remote uploads.
+            if (project.hasProperty('mavenUsername') && project.hasProperty('mavenPassword')) {
+            
+                credentials {
+                
+                    username findProperty('mavenUsername')
+                    password findProperty('mavenPassword')
+                }
+            }
+
+            url getDefaultString('mavenURL', 'undefined', true)
+        }
+    }
+}

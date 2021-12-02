@@ -11,6 +11,7 @@ buildscript {
 }
 
 apply plugin: 'net.minecraftforge.gradle'
+apply from: '../gradle/patreon.gradle'
 
 archivesBaseName = "${mod_name}-Forge-${minecraft_version}"
 

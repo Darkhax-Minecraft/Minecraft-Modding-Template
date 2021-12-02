@@ -3,6 +3,7 @@ plugins {
 }
 
 apply from: '../gradle/property_helper.gradle'
+apply from: '../gradle/patreon.gradle'
 
 archivesBaseName = "${mod_name}-Common-${minecraft_version}"
 

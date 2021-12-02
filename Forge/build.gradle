@@ -1,10 +1,12 @@
 buildscript {
     repositories {
-        maven { url = 'https://maven.minecraftforge.net' }
+        maven { url 'https://maven.minecraftforge.net' }
+        maven { url 'https://plugins.gradle.org/m2/' }
         mavenCentral()
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'net.darkhax.curseforgegradle', name: 'CurseForgeGradle', version: '1.0.7'
     }
 }
 
@@ -112,4 +114,14 @@ project.publishing {
             url getDefaultString('mavenURL', 'undefined', true)
         }
     }
+}
+
+// CurseForge Publishing
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+
+    apiToken = findProperty('curse_auth')
+
+    def mainFile = upload(curse_project, jar)
+    mainFile.changelogType = 'markdown'
+    mainFile.changelog = project.ext.mod_changelog
 }

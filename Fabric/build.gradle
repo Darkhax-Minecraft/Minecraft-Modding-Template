@@ -1,5 +1,6 @@
 plugins {
     id 'fabric-loom' version '0.10-SNAPSHOT'
+    id 'net.darkhax.curseforgegradle' version '1.0.7'
     id 'idea'
 }
 
@@ -90,4 +91,14 @@ project.publishing {
             url getDefaultString('mavenURL', 'undefined', true)
         }
     }
+}
+
+// CurseForge Publishing
+task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+
+    apiToken = findProperty('curse_auth')
+
+    def mainFile = upload(curse_project, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+    mainFile.changelogType = 'markdown'
+    mainFile.changelog = project.ext.mod_changelog
 }

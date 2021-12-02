@@ -26,7 +26,7 @@ processResources {
         def jsonMinified = 0
         def jsonBytesSaved = 0
         
-        fileTree(dir: outputs.files.asPath, include: '**/*.json').each {
+        fileTree(dir: outputs.files.asPath, include: ['**/*.json', '**/*.mcmeta']).each {
         
             try {
                 def oldLength = it.length()

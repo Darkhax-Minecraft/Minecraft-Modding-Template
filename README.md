@@ -1,34 +1,33 @@
-This mod provides an example Minecraft mod that can be referenced by other mod developers. Players may also use this mod to ensure that mods are being properly loaded.
+This GitHub repository provides a template for how I build my Minecraft mods. It provides many useful scripts, plugins, and modules that can be referenced by other mod developers. Some players may also find this mod useful for ensuring that their preferred mod loader is actually loading mods.
 
 ## Project Goals
-1) Provide build modules and related tools for mod developers.
-2) Document the various tools, apis, plugins, and modules used by mod developers.
-3) Test build tools through continuous integration.
+1) Provide build scripts, modules, and related tools for mod authors.
+2) Document the various tools, apis, plugins, and modules that I use.
+3) Test this build configuration through continuous integration.
 
- 
-## Player Information
-When loaded into a Minecraft environment the example mod will print it's name and version to the console. There are no additional requirements or functionality in game at this time.
+## Note to Developers
+This template contains many modules, plugins, and other tools which can be used to enhance your mods while reducing the amount of work required. This template is licensed under Creative Commons 0 and may be freely used to create new Minecraft mods or improve their existing projects. Credit is appreciated by not required. 
 
- 
-## Developer Information
-This mod is generated using the example mod template on GitHub. This template contains many modules and plugins which can be used to maximize the visibility and presence of your mod while reducing the amount of work required by the developer. This template is licensed under Creative Commons 0 and may be freely used by anyone to create new Minecraft mods or enhance their existing projects. Credit is appreciated but not required.
+## Current Features
 
-## Current features include
+**New to 1.18**
+This project now incorporates [Jared's Multiloader Template](https://github.com/jaredlll08/MultiLoader-Template) which allows mods to be developed against the vanilla codebase and then compiled for Forge and Fabric independently. This has changed many aspects of the project structure which have now been accounted for by this template. 
 
-    Appending build number from CI environment
-    Generating Sources and Javadoc artefacts
-    Common Java manifest properties
-    Autodeploy build artefacts to CurseForge
-    Post to Discord on CurseForge upload
-    Generate Forge mod, including mixins, access transformers, and other properties
-    Generate changelogs from git commit messages
-    Deploy build artefacts to maven
-    Minify JSON files at build time
-    Build time properties from secret environmental variables
-    Signing build artefacts with PGP signatures
-    In-game update/version checker
+- Append build number from CI job or current git commit hash.
+- Sources and JavaDoc generation.
+- Common Java manifest attributes.
+- Publish new builds to CurseForge using new CurseForgeGradle plugin.
+- Announce new CurseForge releases on Discord.
+- Announce new CurseForge releases on Twitter.
+- Deploy artifacts to Maven.
+- Sign build artifacts with PGP.
+- In game version update checker.
+- Minify JSON and mcmeta files at build time.
+- Include Patreon pledge information in builds.
+- Apply Mixins for Forge, Fabric, and vanilla.
+- Generate changelogs from git commit history.
+- Compile for both Forge and Fabric using one code base!
 
- 
 ## Future Updates
-This project will be updated with additional features, documentation, and optimizations as time permits. The immediate plans include additional documentation, Twitter integration, and Fabric support.
+This project will be updated with additional features, documentation, and optimizations as time permits. I personally consider this project feature complete and have no immediate plans for new features.
  

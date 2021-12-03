@@ -7,11 +7,6 @@ plugins {
 apply from: '../gradle/property_helper.gradle'
 apply from: '../gradle/patreon.gradle'
 
-if (project.hasProperty('mod_changelog')) {
-
-    project.logger.lifecycle('Configuring Fabric: Git Changelog: \n\n' + project.ext.mod_changelog)
-}
-
 archivesBaseName = "${mod_name}-Fabric-${minecraft_version}"
 
 dependencies {
@@ -108,5 +103,5 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
 
     def mainFile = upload(curse_project, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
     mainFile.changelogType = 'markdown'
-    mainFile.changelog = project.ext.mod_changelog //+ "\n\nThis project is made possible by [Patreon](${patreonInfo.campaignUrlTracked}) support from players like you. Thank you!\n\n${patreonInfo.pledgeLog}"
+    mainFile.changelog = project.ext.mod_changelog + "\n\nThis project is made possible by [Patreon](${patreonInfo.campaignUrlTracked}) support from players like you. Thank you!\n\n${patreonInfo.pledgeLog}"
 }

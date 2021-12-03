@@ -22,7 +22,7 @@ if (project.hasProperty('patreon_campaign_id') && findProperty('patreon_auth_tok
         project.ext.patreon.campaignUrlTracked = "${project.ext.patreon.campaignUrl}?${project.ext.mod_id}"
     }
     
-    project.logger.lifecycle("Loading plede data for default campaign ${defaultCampaign}.")
+    project.logger.lifecycle("Loading pledge data for default campaign ${defaultCampaign}.")
 }
 
 else {

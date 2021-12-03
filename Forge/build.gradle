@@ -11,7 +11,7 @@ buildscript {
 }
 
 apply plugin: 'net.minecraftforge.gradle'
-//apply from: '../gradle/patreon.gradle'
+apply from: '../gradle/patreon.gradle'
 
 archivesBaseName = "${mod_name}-Forge-${minecraft_version}"
 
@@ -120,6 +120,8 @@ project.publishing {
 // CurseForge Publishing
 task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
 
+    project.logger.lifecycle("hasPatreon: ${project.hasProperty('patreon')}")
+    project.logger.lifecycle("hasCurseAuth: ${project.hasProperty('curse_auth')}")
     apiToken = findProperty('curse_auth')
 
     def mainFile = upload(curse_project, jar)

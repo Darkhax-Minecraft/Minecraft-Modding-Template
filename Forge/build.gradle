@@ -138,7 +138,7 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     
         if (project.hasProperty('mod_homepage')) {
         
-            project.ext.curse_file_url = "${mod_homepage}/files/${mainFilecurseFileId}"
+            project.ext.curse_file_url = "${mod_homepage}/files/${mainFile.curseFileId}"
         }
     }
 }

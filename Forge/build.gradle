@@ -11,7 +11,7 @@ buildscript {
 }
 
 apply plugin: 'net.minecraftforge.gradle'
-apply from: '../gradle/patreon.gradle'
+//apply from: '../gradle/patreon.gradle'
 
 archivesBaseName = "${mod_name}-Forge-${minecraft_version}"
 
@@ -124,5 +124,5 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
 
     def mainFile = upload(curse_project, jar)
     mainFile.changelogType = 'markdown'
-    mainFile.changelog = project.ext.mod_changelog + "\n\nThis project is made possible by [Patreon](${project.ext.patreon.campaignUrlTracked}) support from players like you. Thank you!\n\n${project.ext.patreon.pledgeLog}"
+    mainFile.changelog = project.ext.mod_changelog //+ "\n\nThis project is made possible by [Patreon](${project.ext.patreon.campaignUrlTracked}) support from players like you. Thank you!\n\n${project.ext.patreon.pledgeLog}"
 }

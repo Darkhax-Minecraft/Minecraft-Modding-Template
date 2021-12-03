@@ -13,10 +13,10 @@ import groovy.json.JsonSlurper
 
 project.rootProject.file("properties").text = project.properties.toString()
 new File("${project.buildDir}/classes/extra/list.txt").text = sample.join ("\n")
-if (project.hasProperty('secretFile')) {
-    project.logger.lifecycle(project.getProperty('secretFile'))
+if (project.rootProject.hasProperty('secretFile')) {
+    project.logger.lifecycle(project.rootProject.getProperty('secretFile'))
 
-    final def secretsFile = project.rootProject.file(project.getProperty('secretFile'))
+    final def secretsFile = project.rootProject.file(project.rootProject.getProperty('secretFile'))
     
     if (secretsFile.exists() && secretsFile.name.endsWith('.json')) {
     

@@ -139,7 +139,7 @@ task postTweet (type: net.darkhax.tweedle.TaskPostTweet){
     
         def tweetBody = "${project.ext.mod_name} (Fabric) ${project.version} for Minecraft ${project.ext.minecraft_version} has been released. #${project.ext.mod_name.toLowerCase().replaceAll("[^a-zA-Z]", "")} #fabric"
         
-        if (projectPage && newFileId) {
+        if (project.hasProperty('curse_file_url')) {
             
             tweetBody += " ${project.findProperty('curse_file_url')}"
         }

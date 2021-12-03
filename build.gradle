@@ -8,12 +8,14 @@ buildscript {
     
     dependencies {
     
-        classpath group: 'com.diluv.schoomp', name: 'Schoomp', version: '1.1.0'
+        classpath group: 'com.diluv.schoomp', name: 'Schoomp', version: '1.2.5'
     }
 }
 
 apply from: 'gradle/property_loader.gradle'
+apply from: 'gradle/build_number.gradle'
 apply from: 'gradle/git_changelog.gradle'
+apply from: 'gradle/version_checker.gradle'
 
 subprojects {
 
@@ -35,7 +37,6 @@ subprojects {
     }
 }
 
-// Publishes an announcement to Discord.
 import com.diluv.schoomp.Webhook
 import com.diluv.schoomp.message.Message
 import com.diluv.schoomp.message.embed.Embed
@@ -43,12 +44,11 @@ import com.diluv.schoomp.message.embed.Footer
 
 task postDiscord() {
 
-    if (project.hasProperty('curse_discord_webhook')) {
-
+    doLast {
         try {
-    
+
             // Create a new webhook instance for Discord
-            def webhook = new Webhook(findProperty('curse_discord_webhook'), "${project.ext.modName} CurseForge Gradle Upload")
+            def webhook = new Webhook(findProperty('curse_discord_webhook'), "${project.ext.mod_name} CurseForge Gradle Upload")
         
             // Craft a message to send to Discord using the webhook.
             def message = new Message()      
@@ -56,22 +56,21 @@ task postDiscord() {
             message.setContent("${project.ext.mod_name} ${project.version} for Minecraft ${project.ext.minecraft_version} has been published!")
             
             def embed = new Embed();
-            
-            def downloadLinks = new StringJoiner('\n')
+            def downloadSources = new StringJoiner('\n')
             
             if (project(':Forge').hasProperty('curse_file_url')) {
             
-                downloadLinks.add("<:forge:916233930091401266> [(Forge)](${project(':Forge').findProperty('curse_file_url')})")
+                downloadSources.add("<:forge:916233930091401266> [Forge](${project(':Forge').findProperty('curse_file_url')})")
             }
             
             if (project(':Fabric').hasProperty('curse_file_url')) {
             
-                downloadLinks.add("<:fabric:916233929722314763> [(Fabric)](${project(':Fabric').findProperty('curse_file_url')})")
+                downloadSources.add("<:fabric:916233929722314763> [Fabric](${project(':Fabric').findProperty('curse_file_url')})")
             }
             
-            def downloadString = downloadLinks.toString()
-            
             // Add Curseforge DL link if available.
+            def downloadString = downloadSources.toString()
+            
             if (downloadString && !downloadString.isEmpty()) {
             
                 embed.addField('Download', downloadString, false)
@@ -88,7 +87,7 @@ task postDiscord() {
 
             webhook.sendMessage(message)
         }
-    
+
         catch (IOException e) {
         
             project.logger.error('Failed to push CF Discord webhook.')

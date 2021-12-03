@@ -12,8 +12,8 @@ buildscript {
     }
 }
 
-apply from: '../gradle/property_loader.gradle'
-apply from: '../gradle/git_changelog.gradle'
+apply from: 'gradle/property_loader.gradle'
+apply from: 'gradle/git_changelog.gradle'
 
 subprojects {
 

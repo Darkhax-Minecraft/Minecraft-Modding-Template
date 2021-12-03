@@ -96,8 +96,6 @@ project.publishing {
 
 // CurseForge Publishing
 task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
-
-    def patreonInfo = project.findProperty('patreon')
     
     apiToken = findProperty('curse_auth')
 
@@ -105,6 +103,9 @@ task publishCurseForge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge)
     mainFile.changelogType = 'markdown'
     mainFile.changelog = project.ext.mod_changelog 
     
+    // Append Patreon Supporters
+    def patreonInfo = project.findProperty('patreon')
+        
     if (patreonInfo) {
         mainFile.changelog += "\n\nThis project is made possible by [Patreon](${patreonInfo.campaignUrlTracked}) support from players like you. Thank you!\n\n${patreonInfo.pledgeLog}"
     }

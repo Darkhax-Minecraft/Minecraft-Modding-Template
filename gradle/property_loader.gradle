@@ -12,7 +12,7 @@ import groovy.json.JsonSlurper
 // Auto detects a secret file and injects it.
 if (project.hasProperty('secretFile')) {
 
-    final def secretsFile = file project.getProperty('secretFile')
+    final def secretsFile = project.rootProject.file(project.getProperty('secretFile'))
     
     if (secretsFile.exists() && secretsFile.name.endsWith('.json')) {
     

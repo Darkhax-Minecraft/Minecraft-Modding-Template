@@ -4,7 +4,7 @@
  provided by CI like Jenkins or Travis. If no number can be found the build 
  number will be set to 0.
 */
-apply from: '../gradle/property_helper.gradle'
+apply from: "$rootDir/gradle/property_helper.gradle"
 
 def buildNumber = System.getenv('BUILD_NUMBER') ? System.getenv('BUILD_NUMBER') : System.getenv('TRAVIS_BUILD_NUMBER') ? System.getenv('TRAVIS_BUILD_NUMBER') : getFallbackVersion()
 project.version = "${project.version}.${buildNumber}".toString()

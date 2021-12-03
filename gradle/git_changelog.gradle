@@ -4,7 +4,7 @@
  known the current commit will be used. The changelog output is in markdown
  format and will contain the commit message and a link to the commit.
 */
-apply from: '../gradle/property_helper.gradle'
+apply from: "$rootDir/gradle/property_helper.gradle"
 
 project.ext.mod_changelog = 'No changelog available.'
 

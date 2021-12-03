@@ -52,7 +52,7 @@ task postDiscord() {
         
             // Craft a message to send to Discord using the webhook.
             def message = new Message()      
-            message.setUsername(project.ext.mod_name)
+            message.setUsername("Mod Update: ${project.ext.mod_name}")
             message.setContent("${project.ext.mod_name} ${project.version} for Minecraft ${project.ext.minecraft_version} has been published!")
             
             def embed = new Embed();

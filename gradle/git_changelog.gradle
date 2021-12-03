@@ -34,6 +34,11 @@ catch (Exception e) {
     project.logger.warn('Changelog generation has failed!', e)
 }
 
+if (project.hasProperty('mod_changelog')) {
+
+    project.logger.lifecycle('Git Changelog: \n\n' + project.ext.mod_changelog)
+}
+
 def getChangelog(maxLength) {
 
     def split = project.ext.mod_changelog.split('\n')

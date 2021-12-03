@@ -7,6 +7,11 @@ plugins {
 apply from: '../gradle/property_helper.gradle'
 apply from: '../gradle/patreon.gradle'
 
+if (project.hasProperty('mod_changelog')) {
+
+    project.logger.lifecycle('Configuring Fabric: Git Changelog: \n\n' + project.ext.mod_changelog)
+}
+
 archivesBaseName = "${mod_name}-Fabric-${minecraft_version}"
 
 dependencies {

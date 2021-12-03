@@ -12,9 +12,5 @@ pluginManagement {
     }
 }
 
-// Load gradle.properties early
-def props = new Properties()
-file('gradle.properties').withInputStream { props.load(it) }
-
-rootProject.name = props.getProperty('mod_name')
+rootProject.name = "ExampleMod"
 include('Common', 'Fabric', 'Forge')

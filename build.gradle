@@ -39,6 +39,26 @@ subprojects {
     // Enable Mixins
     project.ext.mixin_enabled = project.file("src/main/resources/${mod_id}.mixins.json").exists()
     project.logger.lifecycle("Mixin ${project.ext.mixin_enabled ? 'enabled' : 'disabled'} for project ${project.name}.")
+    
+    repositories {
+
+        mavenCentral()
+
+        maven {
+            name = 'Sponge / Mixin'
+            url = 'https://repo.spongepowered.org/repository/maven-public/'
+        }
+
+        maven {
+            name = 'BlameJared Maven (CrT / Bookshelf)'
+            url = 'https://maven.blamejared.com'
+        }
+        
+        maven {
+            name = 'Mod Menu'
+            url = 'https://maven.terraformersmc.com/releases/'
+        }
+    }
 }
 
 import com.diluv.schoomp.Webhook

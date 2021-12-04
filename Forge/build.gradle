@@ -81,6 +81,23 @@ processResources {
     // build time.
     buildProps.put('file', [jarVersion: project.version])
 
+    if (project.hasProperty('patreon')) {
+
+        def supporters = new ArrayList<String>()
+
+        for (entry in project.ext.patreon.pledges) {
+
+            def pledge = entry.value;
+
+            if (pledge.isValid()) {
+
+                supporters.add(pledge.getDisplayName())
+            }
+        }
+
+        buildProps.put('mod_supporters', supporters.join(', '))
+    }
+
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
 
         expand buildProps

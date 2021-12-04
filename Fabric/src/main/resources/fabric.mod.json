@@ -1,12 +1,13 @@
 {
     "schemaVersion": 1,
-    "id": "examplemod",
+    "id": "${mod_id}",
     "version": "${version}",
   
     "name": "${mod_name}",
     "description": "${mod_description}",
     "authors": [
-      "Me!"
+      "${mod_author}",
+      "This project is made possible with Patreon support from players like you. Thank you! ${mod_supporters}"
     ],
     "contact": {
       "homepage": "${mod_homepage}",
@@ -21,7 +22,7 @@
       ]
     },
     "mixins": [
-      "examplemod.mixins.json"
+      "${mod_id}.mixins.json"
     ],
   
     "depends": {

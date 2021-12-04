@@ -41,6 +41,23 @@ processResources {
 
     def buildProps = project.properties.clone()
 
+    if (project.hasProperty('patreon')) {
+
+        def supporters = new ArrayList<String>()
+
+        for (entry in project.ext.patreon.pledges) {
+
+            def pledge = entry.value;
+
+            if (pledge.isValid()) {
+
+                supporters.add(pledge.getDisplayName())
+            }
+        }
+
+        buildProps.put('mod_supporters', supporters.join(', '))
+    }
+
     filesMatching(['fabric.mod.json', 'pack.mcmeta']) {
 
         expand buildProps

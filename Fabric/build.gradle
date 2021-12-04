@@ -35,7 +35,6 @@ loom {
     }
 }
 
-
 processResources {
 
     from project(":Common").sourceSets.main.resources

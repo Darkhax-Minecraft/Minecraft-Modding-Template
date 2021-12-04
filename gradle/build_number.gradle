@@ -12,20 +12,20 @@ project.logger.lifecycle("Appending build number to version. Version is now ${pr
 
 def getFallbackVersion() {
 
-    try {
-
-        def commitHash = System.getenv('GIT_COMMIT') ?: getExecOutput(['git', 'log', '-n', '1', '--pretty=tformat:%h' ])
-
-        if (commitHash != null && !commitHash.isEmpty() && !commitHash.isBlank()) {
-
-            return "0-${commitHash}".toString();
-        }
-    }
-
-    catch (Exception e) {
-
-        // No op
-    }
+//    try {
+//
+//        def commitHash = System.getenv('GIT_COMMIT') ?: getExecOutput(['git', 'log', '-n', '1', '--pretty=tformat:%h' ])
+//
+//        if (commitHash != null && !commitHash.isEmpty() && !commitHash.isBlank()) {
+//
+//            return "0-${commitHash}".toString();
+//        }
+//    }
+//
+//    catch (Exception e) {
+//
+//        // No op
+//    }
 
     return '0'
 }
